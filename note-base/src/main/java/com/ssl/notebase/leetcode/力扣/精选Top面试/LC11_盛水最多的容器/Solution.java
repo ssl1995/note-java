@@ -12,18 +12,23 @@ public class Solution {
      * 输出：49
      */
     public int maxArea(int[] height) {
-        int left = 0, right = height.length - 1;
+        if (height == null || height.length == 0) {
+            return 0;
+        }
+        int left = 0;
+        int right = height.length - 1;
         int maxArea = 0;
-        int temp = 0;
+        int tempArea = 0;
         while (left < right) {
-            // 面积变大只需要移动短板，因为短板处移动才可能变大面积
+            // 移动短板，才可能增大面积
             if (height[left] < height[right]) {
-                // right - left 是容器的长，而不是下标长度不用right-left +1
-                temp = (right - left) * height[left++];
+                tempArea = (right - left) * height[left];
+                left++;
             } else {
-                temp = (right - left) * height[right--];
+                tempArea = (right - left) * height[right];
+                right--;
             }
-            maxArea = Math.max(maxArea, temp);
+            maxArea = Math.max(tempArea, maxArea);
         }
         return maxArea;
     }
