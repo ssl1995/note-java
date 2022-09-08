@@ -1,5 +1,6 @@
 package com.ssl.notebase.leetcode.力扣.精选Top面试.LC20_有效的括号;
 
+import java.util.Deque;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
@@ -17,29 +18,31 @@ public class Solution {
      * 输出：true
      */
     public boolean isValid(String s) {
-        if (s == null || s.length() <= 1) {
+        if (s == null || s.length() == 0) {
             return false;
         }
-        // 创建左右括号对应的map
-        Map<Character, Character> map = new HashMap<>(3) {{
-            put('{', '}');
-            put('[', ']');
-            put('(', ')');
-        }};
-        LinkedList<Character> stack = new LinkedList<>();
-        for (char c : s.toCharArray()) {
-            // c=左括号，就入栈
-            if (map.containsKey(c)) {
-                stack.push(c);
+        Map<Character, Character> map = new HashMap<>();
+        map.put('(', ')');
+        map.put('[', ']');
+        map.put('{', '}');
+
+        Deque<Character> stack = new LinkedList<>();
+        char[] cs = s.toCharArray();
+        for (int i = 0; i < cs.length; i++) {
+            char c1 = cs[i];
+            if (map.containsKey(c1)) {
+                stack.push(c1);
             } else {
-                // c=右括号，就比对栈顶是否匹配
-                if (stack.isEmpty() || map.get(stack.peek()) != c) {
+                if (stack.isEmpty()) {
                     return false;
                 }
-                stack.pop();
+                char c2 = stack.pop();
+                if (map.get(c2) != c1) {
+                    return false;
+                }
             }
         }
-        // 结果：判断栈是否为空
+        // 最后判断是否为空
         return stack.isEmpty();
     }
 }
