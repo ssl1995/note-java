@@ -1,5 +1,7 @@
 package com.ssl.notebase.coding;
 
+import com.ssl.notebase.leetcode.力扣.utils.ListNode;
+
 import java.util.*;
 
 /**
@@ -9,32 +11,32 @@ import java.util.*;
  */
 public class Solution {
 
-    public boolean isValid(String s) {
-        if (s == null || s.length() == 0) {
-            return false;
+    /**
+     * 输入：l1 = [1,2,4], l2 = [1,3,4]
+     * 输出：[1,1,2,3,4,4]
+     */
+    public ListNode mergeTwoLists(ListNode list1, ListNode list2) {
+        if (list1 == null) {
+            return list2;
         }
-        Map<Character, Character> map = new HashMap<>();
-        map.put('(', ')');
-        map.put('[', ']');
-        map.put('{', '}');
-
-        Deque<Character> stack = new LinkedList<>();
-        char[] cs = s.toCharArray();
-        for (int i = 0; i < cs.length; i++) {
-            char c1 = cs[i];
-            if (map.containsKey(c1)) {
-                stack.push(c1);
+        ListNode dummy = new ListNode(-1);
+        ListNode cur = dummy;
+        while (list1 != null && list2 != null) {
+            if (list1.val < list2.val) {
+                cur.next = list1;
+                list1 = list1.next;
             } else {
-                if (stack.isEmpty()) {
-                    return false;
-                }
-                char c2 = stack.pop();
-                if (map.get(c2) != c1) {
-                    return false;
-                }
+                cur.next = list2;
+                list2 = list2.next;
             }
+            cur = cur.next;
         }
-        // 最后判断是否为空
-        return stack.isEmpty();
+        if (list1 != null) {
+            cur.next = list1;
+        }
+        if (list2 != null) {
+            cur.next = list2;
+        }
+        return dummy.next;
     }
 }
