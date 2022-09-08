@@ -12,13 +12,15 @@ public class Solution {
         if (head == null || n < 1) {
             return null;
         }
-        // 如果fast、slow都从head开始遍历，当链表只有一个元素时候，n=1删除倒数第一个元素时
-        // slow.next 会报空指针异常，思考指针next的用途，我们需要从dummy虚拟头结点开始
+        // 1.哑结点
         ListNode dummy = new ListNode(-1);
         dummy.next = head;
-
+        // 如果fast、slow都从head开始遍历，当链表只有一个元素时候，n=1删除倒数第一个元素时
+        // slow.next 会报空指针异常，思考指针next的用途，我们需要从dummy虚拟头结点开始
+        // 2.快慢指针指向dummy
         ListNode fast = dummy;
         ListNode slow = dummy;
+        // 3.快指针先走n步
         while (n > 0) {
             // 这一步其实不用验证，题目保证n在链表长度内
             if (fast == null) {
@@ -29,13 +31,14 @@ public class Solution {
         }
         // 注意循环条件：fast.next != null
         // 换句话：fast.next ==null结束遍历
+        // 4.快慢指针一起走
         while (fast.next != null) {
             fast = fast.next;
             slow = slow.next;
         }
-        // 删除倒数第n个节点
+        // 5.删除倒数第n个节点
         slow.next = slow.next.next;
-
+        // 6.返回哑结点.next
         return dummy.next;
     }
 

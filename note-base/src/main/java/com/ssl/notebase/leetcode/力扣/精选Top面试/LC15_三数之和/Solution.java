@@ -22,24 +22,23 @@ public class Solution {
             return new ArrayList<>();
         }
         List<List<Integer>> res = new ArrayList<>();
-        // 将原数组排序
+        // 1.将原数组排序
         // 原 nums = [-1,0,1,2,-1,-4]
         // 排序后 nums = [-4,-1,-1,0,1,2]
         Arrays.sort(nums);
 
         int n = nums.length;
+        // 2.遍历
         for (int i = 0; i < n; i++) {
-            // 数组已排序，如果起始位置的nums[i]>0,三数之和一定>0，跳出
+            // 3.已排序，若>0，就跳出
             if (nums[i] > 0) {
                 break;
             }
-
-            // 排序数组后，来到i位置，i-1位置已经判断过，跳过
+            // 4.已排序，是否需要去重
             if (i > 0 && nums[i] == nums[i - 1]) {
                 continue;
             }
-
-            // 固定i位置，后面的位置双指针判断sum==0
+            // 5.固定i位置，后面的位置双指针判断sum==0
             int left = i + 1;
             int right = n - 1;
             while (left < right) {
@@ -50,9 +49,11 @@ public class Solution {
                 } else if (sum > 0) {
                     right--;
                 } else {
+                    // 6.加入结果集
                     // 因为数组已排序，从小到大:nums[i]、nums[left]、nums[right]比较好看
                     res.add(Arrays.asList(nums[i], nums[left], nums[right]));
 
+                    // 7.sum==0.相同就就要跳过无需判断
                     // sum==0时，left后面的值判断去重
                     while (left < right && nums[left] == nums[left + 1]) {
                         left++;
