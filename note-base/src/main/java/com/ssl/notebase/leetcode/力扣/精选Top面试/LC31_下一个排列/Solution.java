@@ -14,6 +14,8 @@ public class Solution {
      * 变化：nums-> [4,5,3,6,2,1] 2.从后往前找第一个比nums[i]大的数，交换
      * 变化：nums-> [4,5,3,1,2,6] 3.逆置[i+1,n-1]的数
      * 输出：[4,5,3,1,2,6]
+     * 记住：[2,3,1] -> [3,1,2]选择的过程
+     * 记住：[3,2,1] -> [1,2,3]反转的过程
      */
     public void nextPermutation(int[] nums) {
         if (nums.length < 2) {
