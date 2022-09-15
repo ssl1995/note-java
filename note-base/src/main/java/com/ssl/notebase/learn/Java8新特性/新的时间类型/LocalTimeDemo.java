@@ -1,6 +1,6 @@
 package com.ssl.notebase.learn.Java8新特性.新的时间类型;
 
-import org.junit.jupiter.api.Test;
+import org.testng.annotations.Test;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
