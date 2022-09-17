@@ -11,4 +11,8 @@ spring:
     host: r-uf6ljbcdaxobsifyctpd.redis.rds.aliyuncs.com
     password: Redis000
     port: 6379
+  mybatis:
+    mapper-locations:
+      - classpath:mapper/*.xml
+      - classpath*:com/**/mapper/*.xml
 
