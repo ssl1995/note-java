@@ -21,7 +21,7 @@ public class Code02_BubbleSort {
         }
     }
 
-    // 交换arr的i和j位置上的值
+    // 不用任何额外变量交换两个数
     public static void swap(int[] arr, int i, int j) {
         arr[i] = arr[i] ^ arr[j];
         arr[j] = arr[i] ^ arr[j];
