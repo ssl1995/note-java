@@ -51,6 +51,8 @@ public class Code05_GetMinStack {
 		}
 
 		public void push(int newNum) {
+			// 往最小值栈push情况：
+			// 1.最小值栈空。2.新数小，直接push。3.新手大，push最小值peek
 			if (this.stackMin.isEmpty()) {
 				this.stackMin.push(newNum);
 			} else if (newNum < this.getmin()) {
