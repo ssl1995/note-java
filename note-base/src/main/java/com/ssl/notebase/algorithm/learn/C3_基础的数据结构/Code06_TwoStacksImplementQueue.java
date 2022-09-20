@@ -16,7 +16,7 @@ public class Code06_TwoStacksImplementQueue {
             stackPop = new Stack<Integer>();
         }
 
-        // push栈向pop栈倒入数据
+        // 实现一个往第二个栈里倒数据的逻辑
         private void pushToPop() {
             if (stackPop.empty()) {
                 while (!stackPush.empty()) {
