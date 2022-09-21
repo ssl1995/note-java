@@ -30,6 +30,12 @@ public class CommonPage<T> {
         return result;
     }
 
+    public static void main(String[] args) {
+        for (int i = 0; i < 2; i++) {
+            System.out.print(i+'b'+1);
+        }
+    }
+
     public Integer getPageNum() {
         return pageNum;
     }

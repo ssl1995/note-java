@@ -1,4 +1,4 @@
-package com.ssl.notebase.algorithm.learn.C3_基础的数据结构;
+package com.ssl.notebase.algorithm.learn.C03_基础的数据结构;
 
 public class Code02_DeleteGivenValue {
 

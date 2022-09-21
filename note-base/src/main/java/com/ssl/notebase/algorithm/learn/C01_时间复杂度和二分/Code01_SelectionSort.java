@@ -1,31 +1,29 @@
-package com.ssl.notebase.algorithm.learn.C1_时间复杂度和二分;
+package com.ssl.notebase.algorithm.learn.C01_时间复杂度和二分;
 
 import java.util.Arrays;
 
-public class Code02_BubbleSort {
+public class Code01_SelectionSort {
 
-    public static void bubbleSort(int[] arr) {
+    public static void selectionSort(int[] arr) {
         if (arr == null || arr.length < 2) {
             return;
         }
-        // 0 ~ N-1
-        // 0 ~ N-2
-        // 0 ~ N-3
-        for (int e = arr.length - 1; e > 0; e--) { // 0 ~ e
-            for (int i = 0; i < e; i++) {
-                // 谁大谁往右
-                if (arr[i] > arr[i + 1]) {
-                    swap(arr, i, i + 1);
-                }
+        // 0 ~ N-1  找到最小值，在哪，放到0位置上
+        // 1 ~ n-1  找到最小值，在哪，放到1 位置上
+        // 2 ~ n-1  找到最小值，在哪，放到2 位置上
+        for (int i = 0; i < arr.length - 1; i++) {
+            int minIndex = i;
+            for (int j = i + 1; j < arr.length; j++) { // i ~ N-1 上找最小值的下标
+                minIndex = arr[j] < arr[minIndex] ? j : minIndex;
             }
+            swap(arr, i, minIndex);
         }
     }
 
-    // 不用任何额外变量交换两个数
     public static void swap(int[] arr, int i, int j) {
-        arr[i] = arr[i] ^ arr[j];
-        arr[j] = arr[i] ^ arr[j];
-        arr[i] = arr[i] ^ arr[j];
+        int tmp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = tmp;
     }
 
     // for test
@@ -35,8 +33,12 @@ public class Code02_BubbleSort {
 
     // for test
     public static int[] generateRandomArray(int maxSize, int maxValue) {
+        // Math.random()   [0,1)
+        // Math.random() * N  [0,N)
+        // (int)(Math.random() * N)  [0, N-1]
         int[] arr = new int[(int) ((maxSize + 1) * Math.random())];
         for (int i = 0; i < arr.length; i++) {
+            // [-? , +?]
             arr[i] = (int) ((maxValue + 1) * Math.random()) - (int) (maxValue * Math.random());
         }
         return arr;
@@ -84,7 +86,7 @@ public class Code02_BubbleSort {
         System.out.println();
     }
 
-    // for test
+    // 数组对数器，测试自己的代码
     public static void main(String[] args) {
         int testTime = 500000;
         int maxSize = 100;
@@ -93,10 +95,12 @@ public class Code02_BubbleSort {
         for (int i = 0; i < testTime; i++) {
             int[] arr1 = generateRandomArray(maxSize, maxValue);
             int[] arr2 = copyArray(arr1);
-            bubbleSort(arr1);
+            selectionSort(arr1);
             comparator(arr2);
             if (!isEqual(arr1, arr2)) {
                 succeed = false;
+                printArray(arr1);
+                printArray(arr2);
                 break;
             }
         }
@@ -104,7 +108,7 @@ public class Code02_BubbleSort {
 
         int[] arr = generateRandomArray(maxSize, maxValue);
         printArray(arr);
-        bubbleSort(arr);
+        selectionSort(arr);
         printArray(arr);
     }
 

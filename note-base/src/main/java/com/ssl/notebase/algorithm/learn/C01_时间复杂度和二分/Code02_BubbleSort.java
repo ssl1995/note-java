@@ -1,29 +1,31 @@
-package com.ssl.notebase.algorithm.learn.C1_时间复杂度和二分;
+package com.ssl.notebase.algorithm.learn.C01_时间复杂度和二分;
 
 import java.util.Arrays;
 
-public class Code03_InsertionSort {
+public class Code02_BubbleSort {
 
-    public static void insertionSort(int[] arr) {
+    public static void bubbleSort(int[] arr) {
         if (arr == null || arr.length < 2) {
             return;
         }
-        // 不只1个数
-        for (int i = 1; i < arr.length; i++) {
-            // 0 ~ i 做到有序，前面的树比自己大就交换
-            // 最好：O(n)，原数组有序
-            // 最差：O(n^2),原数组逆序
-            for (int j = i - 1; j >= 0 && arr[j] > arr[j + 1]; j--) {
-                swap(arr, j, j + 1);
+        // 0 ~ N-1
+        // 0 ~ N-2
+        // 0 ~ N-3
+        for (int e = arr.length - 1; e > 0; e--) { // 0 ~ e
+            for (int i = 0; i < e; i++) {
+                // 谁大谁往右
+                if (arr[i] > arr[i + 1]) {
+                    swap(arr, i, i + 1);
+                }
             }
         }
     }
 
-    // i和j是一个位置的话，会出错
+    // 不用任何额外变量交换两个数
     public static void swap(int[] arr, int i, int j) {
         arr[i] = arr[i] ^ arr[j];
         arr[j] = arr[i] ^ arr[j];
-          arr[i] = arr[i] ^ arr[j];
+        arr[i] = arr[i] ^ arr[j];
     }
 
     // for test
@@ -33,10 +35,7 @@ public class Code03_InsertionSort {
 
     // for test
     public static int[] generateRandomArray(int maxSize, int maxValue) {
-        // Math.random() -> [0,1) 所有的小数，等概率返回一个
-        // Math.random() * N -> [0,N) 所有小数，等概率返回一个
-        // (int)(Math.random() * N) -> [0,N-1] 所有的整数，等概率返回一个
-        int[] arr = new int[(int) ((maxSize + 1) * Math.random())]; // 长度随机
+        int[] arr = new int[(int) ((maxSize + 1) * Math.random())];
         for (int i = 0; i < arr.length; i++) {
             arr[i] = (int) ((maxValue + 1) * Math.random()) - (int) (maxValue * Math.random());
         }
@@ -88,23 +87,16 @@ public class Code03_InsertionSort {
     // for test
     public static void main(String[] args) {
         int testTime = 500000;
-        int maxSize = 100; // 随机数组的长度0～100
-        int maxValue = 100;// 值：-100～100
+        int maxSize = 100;
+        int maxValue = 100;
         boolean succeed = true;
         for (int i = 0; i < testTime; i++) {
-            int[] arr = generateRandomArray(maxSize, maxValue);
-            int[] arr1 = copyArray(arr);
-            int[] arr2 = copyArray(arr);
-            insertionSort(arr1);
+            int[] arr1 = generateRandomArray(maxSize, maxValue);
+            int[] arr2 = copyArray(arr1);
+            bubbleSort(arr1);
             comparator(arr2);
             if (!isEqual(arr1, arr2)) {
-                // 打印arr1
-                // 打印arr2
                 succeed = false;
-                for (int j = 0; j < arr.length; j++) {
-                    System.out.print(arr[j] + " ");
-                }
-                System.out.println();
                 break;
             }
         }
@@ -112,7 +104,7 @@ public class Code03_InsertionSort {
 
         int[] arr = generateRandomArray(maxSize, maxValue);
         printArray(arr);
-        insertionSort(arr);
+        bubbleSort(arr);
         printArray(arr);
     }
 

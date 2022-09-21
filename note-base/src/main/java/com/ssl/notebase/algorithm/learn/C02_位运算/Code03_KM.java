@@ -1,4 +1,4 @@
-package com.ssl.notebase.algorithm.learn.C2_位运算;
+package com.ssl.notebase.algorithm.learn.C02_位运算;
 
 import java.util.HashMap;
 import java.util.HashSet;

@@ -1,4 +1,4 @@
-package com.ssl.notebase.algorithm.learn.C4_归并排序;
+package com.ssl.notebase.algorithm.learn.C04_归并排序;
 
 public class Code01_MergeSort {
 

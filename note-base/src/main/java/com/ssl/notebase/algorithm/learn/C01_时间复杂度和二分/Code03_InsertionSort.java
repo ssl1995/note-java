@@ -1,29 +1,29 @@
-package com.ssl.notebase.algorithm.learn.C1_时间复杂度和二分;
+package com.ssl.notebase.algorithm.learn.C01_时间复杂度和二分;
 
 import java.util.Arrays;
 
-public class Code01_SelectionSort {
+public class Code03_InsertionSort {
 
-    public static void selectionSort(int[] arr) {
+    public static void insertionSort(int[] arr) {
         if (arr == null || arr.length < 2) {
             return;
         }
-        // 0 ~ N-1  找到最小值，在哪，放到0位置上
-        // 1 ~ n-1  找到最小值，在哪，放到1 位置上
-        // 2 ~ n-1  找到最小值，在哪，放到2 位置上
-        for (int i = 0; i < arr.length - 1; i++) {
-            int minIndex = i;
-            for (int j = i + 1; j < arr.length; j++) { // i ~ N-1 上找最小值的下标
-                minIndex = arr[j] < arr[minIndex] ? j : minIndex;
+        // 不只1个数
+        for (int i = 1; i < arr.length; i++) {
+            // 0 ~ i 做到有序，前面的树比自己大就交换
+            // 最好：O(n)，原数组有序
+            // 最差：O(n^2),原数组逆序
+            for (int j = i - 1; j >= 0 && arr[j] > arr[j + 1]; j--) {
+                swap(arr, j, j + 1);
             }
-            swap(arr, i, minIndex);
         }
     }
 
+    // i和j是一个位置的话，会出错
     public static void swap(int[] arr, int i, int j) {
-        int tmp = arr[i];
-        arr[i] = arr[j];
-        arr[j] = tmp;
+        arr[i] = arr[i] ^ arr[j];
+        arr[j] = arr[i] ^ arr[j];
+          arr[i] = arr[i] ^ arr[j];
     }
 
     // for test
@@ -33,12 +33,11 @@ public class Code01_SelectionSort {
 
     // for test
     public static int[] generateRandomArray(int maxSize, int maxValue) {
-        // Math.random()   [0,1)
-        // Math.random() * N  [0,N)
-        // (int)(Math.random() * N)  [0, N-1]
-        int[] arr = new int[(int) ((maxSize + 1) * Math.random())];
+        // Math.random() -> [0,1) 所有的小数，等概率返回一个
+        // Math.random() * N -> [0,N) 所有小数，等概率返回一个
+        // (int)(Math.random() * N) -> [0,N-1] 所有的整数，等概率返回一个
+        int[] arr = new int[(int) ((maxSize + 1) * Math.random())]; // 长度随机
         for (int i = 0; i < arr.length; i++) {
-            // [-? , +?]
             arr[i] = (int) ((maxValue + 1) * Math.random()) - (int) (maxValue * Math.random());
         }
         return arr;
@@ -86,21 +85,26 @@ public class Code01_SelectionSort {
         System.out.println();
     }
 
-    // 数组对数器，测试自己的代码
+    // for test
     public static void main(String[] args) {
         int testTime = 500000;
-        int maxSize = 100;
-        int maxValue = 100;
+        int maxSize = 100; // 随机数组的长度0～100
+        int maxValue = 100;// 值：-100～100
         boolean succeed = true;
         for (int i = 0; i < testTime; i++) {
-            int[] arr1 = generateRandomArray(maxSize, maxValue);
-            int[] arr2 = copyArray(arr1);
-            selectionSort(arr1);
+            int[] arr = generateRandomArray(maxSize, maxValue);
+            int[] arr1 = copyArray(arr);
+            int[] arr2 = copyArray(arr);
+            insertionSort(arr1);
             comparator(arr2);
             if (!isEqual(arr1, arr2)) {
+                // 打印arr1
+                // 打印arr2
                 succeed = false;
-                printArray(arr1);
-                printArray(arr2);
+                for (int j = 0; j < arr.length; j++) {
+                    System.out.print(arr[j] + " ");
+                }
+                System.out.println();
                 break;
             }
         }
@@ -108,7 +112,7 @@ public class Code01_SelectionSort {
 
         int[] arr = generateRandomArray(maxSize, maxValue);
         printArray(arr);
-        selectionSort(arr);
+        insertionSort(arr);
         printArray(arr);
     }
 
