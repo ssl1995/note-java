@@ -43,15 +43,18 @@ public class Code01_CountOfRangeSum {
         for (int i = M + 1; i <= R; i++) {
             // 已知preSum[i]和[lower,upper]
             // 可以推算出preSum[0..i-1]有多少在[lower-preSum[i],upper-preSum[i]]
+            // -upper是min
             long min = preSum[i] - upper;
+            // -lower是max
             long max = preSum[i] - lower;
+            // 窗口不回退，O(n)
             while (windowR <= M && preSum[windowR] <= max) {
                 windowR++;
             }
             while (windowL <= M && preSum[windowL] < min) {
                 windowL++;
             }
-            ans += windowR - windowL;
+            ans += Math.max(windowR - windowL, 0);
         }
 
         // 归并排序
