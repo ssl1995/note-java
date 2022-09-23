@@ -29,7 +29,7 @@ public class Main {
 
         char[] cs = new char[n];
         for (int i = 0; i < n; i++) {
-            cs[i] = subCs[(int) ((1 + 1) * Math.random()) - (int) (1 * Math.random())];
+            cs[i] = subCs[(int) (2 * Math.random())];
         }
 
         return new String(cs);

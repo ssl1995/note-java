@@ -7,6 +7,7 @@ public class Code01_CountOfRangeSum {
 
     /**
      * LC327 区间数的个数
+     * 给你一个整数数组nums 以及两个整数lower 和 upper 。求数组中，值位于范围 [lower, upper] （包含lower和upper）之内的 区间和的个数 。
      * 区间和 S(i, j) 表示在 nums 中，位置从 i 到 j 的元素之和，包含 i 和 j (i ≤ j)。
      * 输入：nums = [-2,5,-1], lower = -2, upper = 2
      * 输出：3
@@ -39,7 +40,7 @@ public class Code01_CountOfRangeSum {
         int ans = 0;
         int windowL = L;
         int windowR = L;
-        // [windowL, windowR)
+        // [windowL, windowR)在同一个merge中不回退
         for (int i = M + 1; i <= R; i++) {
             // 已知preSum[i]和[lower,upper]
             // 可以推算出preSum[0..i-1]有多少在[lower-preSum[i],upper-preSum[i]]
@@ -75,6 +76,12 @@ public class Code01_CountOfRangeSum {
             preSum[L + i] = help[i];
         }
         return ans;
+    }
+
+    public static void main(String[] args) {
+        int[] num = {-2, 5, -1};
+        int i = countRangeSum(num, -2, 2);
+        System.out.println(i);
     }
 
 }
