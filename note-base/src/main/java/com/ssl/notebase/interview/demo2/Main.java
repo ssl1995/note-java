@@ -9,9 +9,17 @@ public class Main {
 
     public static void main(String[] args) {
         // Math.random()：随机返回一个在[0,1)的浮点数
-        System.out.println(Math.random());
-        // Math.random()：随机返回一个在[0,1)的浮点数
-        System.out.println((int) (1 * Math.random()));
+//        System.out.println(Math.random());
+//        // Math.random()：随机返回一个在[0,1)的浮点数
+//        System.out.println((int) (1 * Math.random()));
+//        System.out.println("------");
+        int R = 3;
+        int L = 0;
+        for (int i = 0; i < 10; i++) {
+            System.out.println((int) (Math.random() * (R - L + 1)));
+            System.out.println(L + (int) (Math.random() * (R - L + 1)));
+            System.out.println("-----");
+        }
 
     }
 }

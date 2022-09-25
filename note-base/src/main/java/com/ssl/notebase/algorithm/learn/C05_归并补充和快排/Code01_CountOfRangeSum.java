@@ -1,4 +1,4 @@
-package com.ssl.notebase.algorithm.learn.C05_归并排序补充题;
+package com.ssl.notebase.algorithm.learn.C05_归并补充和快排;
 
 // 这道题直接在leetcode测评：
 // https://leetcode.com/problems/count-of-range-sum/
