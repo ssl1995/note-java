@@ -6,7 +6,14 @@ import java.util.HashMap;
 import java.util.List;
 
 public class Code02_EveryStepShowBoss {
-
+	/**
+	 * 题目：
+	 * 给一个整形数组arr，和一个布尔数组 op
+	 * 两个数组一定等长，假设长度为N，arr[i]表示客户编号，op[i]表示客户操作
+	 * arr=[3,2,1]
+	 * op=[T,T,F]
+	 * 解释：3客户买了一件商品，2客户买了一件商品，1客户退了一件商品
+	 */
 	public static class Customer {
 		public int id;
 		public int buy;
