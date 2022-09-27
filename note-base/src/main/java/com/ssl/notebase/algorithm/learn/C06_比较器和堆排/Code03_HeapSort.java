@@ -11,7 +11,7 @@ public class Code03_HeapSort {
         if (arr.length < 2) {
             return;
         }
-        // 求小根堆，先做大根堆
+        // 求小根堆，先做大根堆，从下往上，时间复杂度O(N)
         for (int parent = (arr.length - 2) / 2; parent >= 0; parent--) {
             heapify1(arr, parent, arr.length);
         }
