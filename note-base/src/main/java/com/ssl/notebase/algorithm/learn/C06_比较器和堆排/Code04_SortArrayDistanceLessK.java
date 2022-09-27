@@ -8,6 +8,8 @@ public class Code04_SortArrayDistanceLessK {
     /**
      * 已知一个几乎有序的数组，几乎有序是指，如果把数组排好顺序的话，每个元素移动的距离一定不超过K
      * 请选择一个合适的排序策略，对这个数进行排序
+     * 输入：arr=[3,4,1,2,5] k=2
+     * 输出：arr=[1,2,3,4,5]
      */
     public static void sortedArrDistanceLessK(int[] arr, int k) {
         if (k == 0) {
@@ -16,6 +18,9 @@ public class Code04_SortArrayDistanceLessK {
         // 默认小根堆
         PriorityQueue<Integer> heap = new PriorityQueue<>();
         int index = 0;
+        // 有O(N)个数需要加入
+        // 小根堆的堆化操作:O(logK)
+        // 总时间复杂度:O(N*logK)
         // 0...K-1
         for (; index <= Math.min(arr.length - 1, k - 1); index++) {
             heap.add(arr[index]);
