@@ -10,6 +10,7 @@ public class Solution {
         // sb从最低位开始append，所以返回值最后需要反转才能返回
         StringBuilder sb = new StringBuilder();
         // 模仿十进制加法，从末尾开始计算
+        // 1.末尾遍历
         int i = a.length() - 1;
         int j = b.length() - 1;
         int carry = 0;
@@ -21,10 +22,12 @@ public class Solution {
             sum = sum >= 2 ? sum - 2 : sum;
             sb.append(sum);
         }
+        // 2.遍历结束，如果还有进位信息
         if (carry == 1) {// 最高位是否产生进位
             sb.append(1);
         }
         // sb从最低位开始append，所以返回值最后需要反转才能返回
+        // 3.结果反转
         return sb.reverse().toString();
     }
 }
