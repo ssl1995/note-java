@@ -18,6 +18,7 @@ public class Solution1 {
         int[] flags = new int[words.length];
         for (int i = 0; i < words.length; i++) {
             for (char c : words[i].toCharArray()) {
+                // abcw
                 // 防止重复字符干扰结果,使用|=：0与0=0，其余为1，保证位运算
                 flags[i] |= 1 << (c - 'a');
             }
@@ -25,8 +26,8 @@ public class Solution1 {
         int res = 0;
         for (int i = 0; i < words.length; i++) {
             for (int j = i + 1; j < words.length; j++) {
-                // 两个字符串相同，&后==1
-                // 两个字符串不相同，&后==0
+                // 只有所有二进制不相同，才能说明不是含有相同字符的字符串
+                // int[] flags = {4194311, 16416, 131075, 58720288, 63};
                 if ((flags[i] & flags[j]) == 0) {
                     int prod = words[i].length() * words[j].length();
                     res = Math.max(res, prod);
@@ -41,5 +42,6 @@ public class Solution1 {
         Solution1 s1 = new Solution1();
         int res = s1.maxProduct(words);
         System.out.println(res);
+        int[] flags = {4194311, 16416, 131075, 58720288, 63};
     }
 }
