@@ -10,7 +10,7 @@ import com.ssl.notebase.algorithm.leetcode.utils.ListNode;
 public class Solution {
 
     /**
-     * 在两个位置上反转
+     * 反转链表II，在指定区域反转
      */
     public ListNode reverseBetween(ListNode head, int left, int right) {
         if (head == null) {
