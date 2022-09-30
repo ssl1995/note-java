@@ -18,7 +18,13 @@ public class Solution {
                 sum -= nums[left++];
             }
         }
-        // minLen如果距离值没变，那就是没有找到>=k的sum，返回0
         return minLen == Integer.MAX_VALUE ? 0 : minLen;
+    }
+
+    public static void main(String[] args) {
+        Solution solution = new Solution();
+        int[] nums = {2, 3, 1, 2, 4, 3};
+        int t = 7;
+        System.out.println(solution.minSubArrayLen(t, nums));
     }
 }
