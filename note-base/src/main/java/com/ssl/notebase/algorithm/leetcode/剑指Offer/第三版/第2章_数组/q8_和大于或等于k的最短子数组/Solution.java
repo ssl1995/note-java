@@ -5,6 +5,9 @@ package com.ssl.notebase.algorithm.leetcode.剑指Offer.第三版.第2章_数组
  * @date 2021/9/14 9:04 上午
  */
 public class Solution {
+    /**
+     * 和>=k的最短子数组
+     */
     public int minSubArrayLen(int target, int[] nums) {
         int left = 0;// left、right初始化指向数组第一位
         int sum = 0;// 记录和
