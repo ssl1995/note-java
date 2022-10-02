@@ -1,4 +1,4 @@
-package com.ssl.notebase.algorithm.learn.C10_二叉树有环和遍历;
+package com.ssl.notebase.algorithm.learn.C10_二叉树基本算法上;
 
 public class Code02_RecursiveTraversalBT {
 
