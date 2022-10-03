@@ -4,18 +4,25 @@ public class NumMatrix {
 
     private int[][] sums;
 
+    /**
+     * 二维子矩阵的数字之和
+     */
     public NumMatrix(int[][] matrix) {
         if (matrix.length == 0 || matrix[0].length == 0) {
             return;
         }
+        // 采用预处理的方式，转换为sums二维数组
+        // 求区域和公式:sumRegion = sums[r1][r2] - sums[r1-1][r2] - sums[r2][c1-1] + sums[r1-1][c2-1]
         // 防止r-1,c-1在0位置越界，sums数组初始化多1行1列
         sums = new int[matrix.length + 1][matrix[0].length + 1];
         for (int i = 0; i < matrix.length; i++) {
+            // 开始新的一行，当期行累计和置为0
             int rowSum = 0;
             for (int j = 0; j < matrix[0].length; j++) {
                 // rowSum算原数组每一行的和
                 rowSum += matrix[i][j];
                 // sums = 上一行此列的sums + 本行目前元素值的和
+                // 原公式 sums[i][j]=sums[i-1][j]+原数组中第i行中0到第j列元素和
                 sums[i + 1][j + 1] = sums[i][j + 1] + rowSum;
             }
         }
