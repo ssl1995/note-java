@@ -8,6 +8,9 @@ import java.util.Map;
  * @date 2021/9/15 8:59 上午
  */
 public class Solution {
+    /**
+     * 和为k的子数组
+     */
     public int subarraySum(int[] nums, int k) {
         // map<前i个数字之和，这个和出现的次数>
         Map<Integer, Integer> map = new HashMap<>();

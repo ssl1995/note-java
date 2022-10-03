@@ -8,6 +8,11 @@ import java.util.Map;
  * @date 2021/9/15 9:23 上午
  */
 public class Solution {
+
+    /**
+     * 连续数组：找到含有相同数量0和1的连续子数组
+     * nums中只有0和1
+     */
     public int findMaxLength(int[] nums) {
         // Map<当前下标累加和，当前下标>
         Map<Integer, Integer> map = new HashMap<>();
