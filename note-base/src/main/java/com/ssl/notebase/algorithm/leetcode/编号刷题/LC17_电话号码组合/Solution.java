@@ -22,7 +22,7 @@ public class Solution {
             return new ArrayList<>();
         }
         // 题目：只给2-9的数字键盘，map只用存储2-9数字对应的字母表
-        Map<Character, String> map = new HashMap<>() {{
+        Map<Character, String> map = new HashMap<Character, String>() {{
             put('2', "abc");
             put('3', "def");
             put('4', "ghi");

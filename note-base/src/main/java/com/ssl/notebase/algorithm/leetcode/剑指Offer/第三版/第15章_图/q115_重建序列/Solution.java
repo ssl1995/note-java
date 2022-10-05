@@ -56,15 +56,15 @@ public class Solution {
 
     public static void main(String[] args) {
         Solution solution = new Solution();
-        List<List<Integer>> seqs = new ArrayList<>() {
+        List<List<Integer>> seqs = new ArrayList<List<Integer>>() {
         };
-        List<Integer> t1 = new ArrayList<>() {{
+        List<Integer> t1 = new ArrayList<Integer>() {{
             add(5);
             add(2);
             add(6);
             add(3);
         }};
-        List<Integer> t2 = new ArrayList<>() {{
+        List<Integer> t2 = new ArrayList<Integer>() {{
             add(4);
             add(1);
             add(5);

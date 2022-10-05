@@ -73,12 +73,12 @@ public class Solution {
     public static void main(String[] args) {
         Solution solution = new Solution();
         List<List<String>> equations = new ArrayList<>();
-        equations.add(new ArrayList<>() {{
+        equations.add(new ArrayList<String>() {{
             add("a");
             add("b");
         }});
 
-        equations.add(new ArrayList<>() {{
+        equations.add(new ArrayList<String>() {{
             add("b");
             add("c");
         }});
@@ -87,27 +87,27 @@ public class Solution {
 
 
         List<List<String>> queries = new ArrayList<>();
-        queries.add(new ArrayList<>() {{
+        queries.add(new ArrayList<String>() {{
             add("a");
             add("c");
         }});
 
-        queries.add(new ArrayList<>() {{
+        queries.add(new ArrayList<String>() {{
             add("b");
             add("a");
         }});
 
-        queries.add(new ArrayList<>() {{
+        queries.add(new ArrayList<String>() {{
             add("a");
             add("e");
         }});
 
-        queries.add(new ArrayList<>() {{
+        queries.add(new ArrayList<String>() {{
             add("a");
             add("a");
         }});
 
-        queries.add(new ArrayList<>() {{
+        queries.add(new ArrayList<String>() {{
             add("x");
             add("x");
         }});

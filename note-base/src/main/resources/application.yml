@@ -1,5 +1,8 @@
 server:
-  port: 8880
+  port: 443
+  ssl:
+    key-store: classpath:wechat-laosonga-com-ssl.pfx
+    key-store-password: 757w5fTo
 
 spring:
   datasource:
@@ -16,3 +19,18 @@ spring:
       - classpath:mapper/*.xml
       - classpath*:com/**/mapper/*.xml
 
+template:
+  templates:
+    - {"templateId":"1","templateFilePath":"/Users/songshenglin/IdeaProjects/note-java/note-base/src/main/resources/template/template.json","active": true}
+    - {"templateId":"2","templateFilePath":"/Users/songshenglin/IdeaProjects/note-java/note-base/src/main/resources/template/template.json","active": false}
+  template-result-type: 0  # 0-文件获取 1-数据库获取 2-ES
+  template-result-file-path: "/Users/songshenglin/IdeaProjects/note-java/note-base/src/main/resources/template/templateResult.json"
+
+wechat:
+  kafka:
+    bootstrap_servers: "101.201.154.144:9092"
+    acks_config: "all"
+    partitioner_class: "com.ssl.notebase.kafak.producer.SamplePartition"
+
+logging:
+  config: classpath:logback.xml

@@ -19,19 +19,20 @@ public class AdminSample {
 //        AdminClient adminClient = AdminSample.adminClient();
 //        System.out.println("adminClient : "+ adminClient);
         // 创建Topic实例
-        createTopic();
+//        createTopic();
         // 删除Topic实例
 //        delTopics(Lists.newArrayList("songshenglin_sample_topic"));
         // 获取Topic列表
-        topicLists();
+//        topicLists();
         // 描述Topic
 //        describeTopics();
         // 修改Config
 //        alterConfig();
-        // 查询Config
-//        describeConfig();
+
         // 增加partition数量
-//        incrPartitions(2);
+        incrPartitions(2);
+        // 查询Config
+        describeConfig();
     }
 
     /*
@@ -40,6 +41,7 @@ public class AdminSample {
     public static void incrPartitions(int partitions) throws Exception {
         AdminClient adminClient = adminClient();
         Map<String, NewPartitions> partitionsMap = new HashMap<>();
+        // partition只能增加，不能减少
         NewPartitions newPartitions = NewPartitions.increaseTo(partitions);
         partitionsMap.put(TOPIC_NAME, newPartitions);
 
@@ -67,8 +69,7 @@ public class AdminSample {
         Map<ConfigResource, Collection<AlterConfigOp>> configMaps = new HashMap<>();
         // 组织两个参数
         ConfigResource configResource = new ConfigResource(ConfigResource.Type.TOPIC, TOPIC_NAME);
-        AlterConfigOp alterConfigOp =
-                new AlterConfigOp(new ConfigEntry("preallocate", "false"), AlterConfigOp.OpType.SET);
+        AlterConfigOp alterConfigOp = new AlterConfigOp(new ConfigEntry("preallocate", "false"), AlterConfigOp.OpType.SET);
         configMaps.put(configResource, Arrays.asList(alterConfigOp));
 
         AlterConfigsResult alterConfigsResult = adminClient.incrementalAlterConfigs(configMaps);
