@@ -49,7 +49,7 @@ public class ProduceSample {
         Producer<String, String> producer = new KafkaProducer<>(properties);
 
         // 消息对象 - ProducerRecoder
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 20; i++) {
             ProducerRecord<String, String> record = new ProducerRecord<>(TOPIC_NAME, "key-" + i, "value-" + i);
             producer.send(record, new Callback() {
                 @Override

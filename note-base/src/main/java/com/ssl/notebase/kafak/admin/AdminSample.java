@@ -23,16 +23,16 @@ public class AdminSample {
         // 删除Topic实例
 //        delTopics(Lists.newArrayList("songshenglin_sample_topic"));
         // 获取Topic列表
-//        topicLists();
+        topicLists();
         // 描述Topic
 //        describeTopics();
         // 修改Config
 //        alterConfig();
 
         // 增加partition数量
-        incrPartitions(2);
+//        incrPartitions(2);
         // 查询Config
-        describeConfig();
+//        describeConfig();
     }
 
     /*
