@@ -13,13 +13,16 @@ import java.util.*;
  */
 public class AdminSample {
     public final static String TOPIC_NAME = "songshenglin-topic-1";
+
+//    private static final String TOPIC_NAME = "jiangzh-stream-in";
+//    private static final String TOPIC_NAME = "jiangzh-stream-out";
     public final static String HOST_NAME = "101.201.154.144:9092";
 
     public static void main(String[] args) throws Exception {
 //        AdminClient adminClient = AdminSample.adminClient();
 //        System.out.println("adminClient : "+ adminClient);
         // 创建Topic实例
-//        createTopic();
+        createTopic();
         // 删除Topic实例
 //        delTopics(Lists.newArrayList("songshenglin_sample_topic"));
         // 获取Topic列表

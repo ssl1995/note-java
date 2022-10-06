@@ -1,0 +1,40 @@
+## connect启动命令
+bin/connect-distributed.sh -daemon config/connect-distributed.properties
+bin/connect-distributed.sh config/connect-distributed.properties
+
+# 查看是否启动成功
+http://101.201.154.144:8083/connector-plugins
+
+# 监听连接结果
+http://101.201.154.144:8083/connectors
+
+# 发送一个连接：将数据库写入kafka
+curl -X POST -H 'Content-Type: application/json' -i 'http://101.201.154.144:8083/connectors' \
+--data \
+'{"name":"imooc-upload-mysql","config":{
+"connector.class":"io.confluent.connect.jdbc.JdbcSourceConnector",
+"connection.url":"jdbc:mysql://rm-2zep5730lmk5s5dy37o.mysql.rds.aliyuncs.com:3306/kafka_study?characterEncoding=UTF8&autoReconnect=true&serverTimezone=Asia/Shanghai&allowMultiQueries=true&user=root&password=Ssl@199502",
+"table.whitelist":"users",
+"incrementing.column.name": "uuid",
+"mode":"incrementing",
+"topic.prefix": "imooc-mysql-"}}'
+
+# 查看Topic监听数据库更改的结果
+bin/kafka-console-consumer.sh --bootstrap-server 101.201.154.144:9092 --topic imooc-mysql-users --from-beginning
+
+# 将kafka中的链接的数据库数据写入另一个数据库
+curl -X POST -H 'Content-Type: application/json' -i 'http://101.201.154.144:8083/connectors' \
+--data \
+'{"name":"imooc-download-mysql","config":{
+"connector.class":"io.confluent.connect.jdbc.JdbcSinkConnector",
+"connection.url":"jdbc:mysql://rm-2zep5730lmk5s5dy37o.mysql.rds.aliyuncs.com:3306/kafka_study?characterEncoding=UTF8&autoReconnect=true&serverTimezone=Asia/Shanghai&allowMultiQueries=true&user=root&password=Ssl@199502",
+"topics":"imooc-mysql-users",
+"auto.create":"false",
+"insert.mode": "upsert",
+"pk.mode":"record_value",
+"pk.fields":"uuid",
+"table.name.format": "users-bak"}}'
+
+
+# 删除某个链接
+curl -X DELETE -i 'http://101.201.154.144:8083/connectors/load-mysql-data'
