@@ -12,9 +12,9 @@ import java.util.*;
  * @description
  */
 public class AdminSample {
-    public final static String TOPIC_NAME = "songshenglin-topic-1";
+    public final static String TOPIC_NAME = "songshenglin-topic-2";
 
-//    private static final String TOPIC_NAME = "jiangzh-stream-in";
+    //    private static final String TOPIC_NAME = "jiangzh-stream-in";
 //    private static final String TOPIC_NAME = "jiangzh-stream-out";
     public final static String HOST_NAME = "101.201.154.144:9092";
 
@@ -22,13 +22,14 @@ public class AdminSample {
 //        AdminClient adminClient = AdminSample.adminClient();
 //        System.out.println("adminClient : "+ adminClient);
         // 创建Topic实例
-        createTopic();
+//        createTopic();
+        createTopicRs();
         // 删除Topic实例
 //        delTopics(Lists.newArrayList("songshenglin_sample_topic"));
         // 获取Topic列表
-        topicLists();
+//        topicLists();
         // 描述Topic
-//        describeTopics();
+        describeTopics();
         // 修改Config
 //        alterConfig();
 
@@ -115,18 +116,34 @@ public class AdminSample {
 
     /*
         描述Topic
-        name ：jiangzh-topic ,
-        desc: (name=jiangzh-topic,
-            internal=false,
-            partitions=
-                (partition=0,
-                 leader=192.168.220.128:9092
-                 (id: 0 rack: null),
-                 replicas=192.168.220.128:9092
-                 (id: 0 rack: null),
-                 isr=192.168.220.128:9092
-                 (id: 0 rack: null)),
-                 authorizedOperations=[])
+        name ：songshenglin-topic-2 ,
+        desc: (name=songshenglin-topic-2, internal=false,
+        partitions=
+        (partition=0, leader=101.201.154.144:9092
+        (id: 0 rack: null), replicas=101.201.154.144:9092
+        (id: 0 rack: null), 101.201.154.144:9094
+        (id: 2 rack: null), 101.201.154.144:9093
+        (id: 1 rack:null),isr=101.201.154.144:9092
+        (id: 0 rack: null), 101.201.154.144:9094
+        (id: 2 rack: null), 101.201.154.144:9093
+        (id: 1 rack: null)),
+        (partition=1, leader=101.201.154.144:9094
+        (id: 2 rack: null), replicas=101.201.154.144:9094
+        (id: 2 rack: null), 101.201.154.144:9093
+        (id: 1 rack: null), 101.201.154.144:9092
+        (id: 0 rack: null), isr=101.201.154.144:9094
+        (id: 2 rack: null), 101.201.154.144:9093
+        (id: 1 rack: null), 101.201.154.144:9092
+        (id: 0 rack: null)),
+        (partition=2, leader=101.201.154.144:9093
+        (id: 1 rack: null), replicas=101.201.154.144:9093
+        (id: 1 rack: null), 101.201.154.144:9092
+        (id: 0 rack: null), 101.201.154.144:9094
+        (id: 2 rack: null), isr=101.201.154.144:9093
+        (id: 1 rack: null), 101.201.154.144:9092
+        (id: 0 rack: null), 101.201.154.144:9094
+        (id: 2 rack: null)), authorizedOperations=null)
+
      */
     public static void describeTopics() throws Exception {
         AdminClient adminClient = adminClient();
@@ -166,6 +183,23 @@ public class AdminSample {
         topicListings.stream().forEach((topicList) -> {
             System.out.println(topicList);
         });
+    }
+
+    /*
+    创建Topic实例，副本集
+    */
+    public static void createTopicRs() {
+        AdminClient adminClient = adminClient();
+        // 副本因子
+        Short rs = 3;
+        NewTopic newTopic = new NewTopic(TOPIC_NAME, 3, rs);
+        CreateTopicsResult topics = adminClient.createTopics(Arrays.asList(newTopic));
+        try {
+            // 创建Topic需要阻塞等待一会儿才能看到结果
+            topics.all().get();
+        } catch (Exception e) {
+            System.out.println("创建Topic失败 : " + e.getCause());
+        }
     }
 
     /*
