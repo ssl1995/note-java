@@ -12,6 +12,9 @@ import java.util.PriorityQueue;
 public class Solution {
     /**
      * 会议室II
+     * 给你一个会议时间安排的数组 intervals ，
+     * 每个会议时间都会包括开始和结束的时间 intervals[i] = [start, end] ，
+     * 返回 所需会议室的最小数量 。
      * 输入：intervals = [[0,30],[5,10],[15,20]]
      * 输出：2
      */

@@ -60,8 +60,17 @@ public class Code01_IsCBT {
     }
 
     public static class Info {
+        /**
+         * 是否是满二叉树
+         */
         public boolean isFull;
+        /**
+         * 是否是完全二叉树
+         */
         public boolean isCBT;
+        /**
+         * 树高度
+         */
         public int height;
 
         public Info(boolean full, boolean cbt, int h) {
@@ -78,7 +87,9 @@ public class Code01_IsCBT {
         Info leftInfo = process(x.left);
         Info rightInfo = process(x.right);
         int height = Math.max(leftInfo.height, rightInfo.height) + 1;
+        // 当前x是否是满二叉树
         boolean isFull = leftInfo.isFull && rightInfo.isFull && leftInfo.height == rightInfo.height;
+        // 当前x是否是完全二叉树
         boolean isCBT = false;
         if (leftInfo.isFull && rightInfo.isFull && leftInfo.height == rightInfo.height) {
             isCBT = true;
