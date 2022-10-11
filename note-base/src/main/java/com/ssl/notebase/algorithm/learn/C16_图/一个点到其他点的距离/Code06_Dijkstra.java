@@ -1,4 +1,4 @@
-package com.ssl.notebase.algorithm.learn.C16_图;
+package com.ssl.notebase.algorithm.learn.C16_图.一个点到其他点的距离;
 
 import com.ssl.notebase.algorithm.learn.C16_图.graph_me.Edge;
 import com.ssl.notebase.algorithm.learn.C16_图.graph_me.Node;
@@ -57,6 +57,32 @@ public class Code06_Dijkstra {
         return minNode;
     }
 
+    /**
+     * 改进后的dijkstra算法
+     * 从head出发，所有head能到达的节点，生成到达每个节点的最小路径记录并返回
+     */
+    public static HashMap<Node, Integer> dijkstra2(Node head, int size) {
+        // 生成一个加强堆
+        NodeHeap nodeHeap = new NodeHeap(size);
+        // 根节点进堆：没有就新加，有了可能更新/忽略
+        nodeHeap.addOrUpdateOrIgnore(head, 0);
+        HashMap<Node, Integer> result = new HashMap<>();
+        while (!nodeHeap.isEmpty()) {
+            NodeRecord record = nodeHeap.pop();
+            Node cur = record.node;
+            int distance = record.distance;
+            for (Edge edge : cur.edges) {
+                nodeHeap.addOrUpdateOrIgnore(edge.to, edge.weight + distance);
+            }
+            result.put(cur, distance);
+        }
+        return result;
+    }
+
+
+    /**
+     * 加强堆里的每个记录
+     */
     public static class NodeRecord {
         public Node node;
         public int distance;
@@ -67,9 +93,13 @@ public class Code06_Dijkstra {
         }
     }
 
+    /**
+     * 加强堆
+     */
     public static class NodeHeap {
         private Node[] nodes; // 实际的堆结构
         // key 某一个node， value 上面堆中的位置
+        // (a,0)->（a,-1）value=-1表示进来过，但是出去了，我们不删除
         private HashMap<Node, Integer> heapIndexMap;
         // key 某一个节点， value 从源节点出发到该节点的目前最小距离
         private HashMap<Node, Integer> distanceMap;
@@ -89,25 +119,30 @@ public class Code06_Dijkstra {
         // 有一个点叫node，现在发现了一个从源节点出发到达node的距离为distance
         // 判断要不要更新，如果需要的话，就更新
         public void addOrUpdateOrIgnore(Node node, int distance) {
+            // 在堆里也没有被删除过：update
             if (inHeap(node)) {
                 distanceMap.put(node, Math.min(distanceMap.get(node), distance));
                 insertHeapify(node, heapIndexMap.get(node));
             }
+            // 不在堆里，就加入：add
             if (!isEntered(node)) {
                 nodes[size] = node;
                 heapIndexMap.put(node, size);
                 distanceMap.put(node, distance);
                 insertHeapify(node, size++);
             }
+            // 忽略ignore
         }
 
         public NodeRecord pop() {
             NodeRecord nodeRecord = new NodeRecord(nodes[0], distanceMap.get(nodes[0]));
             swap(0, size - 1);
+            // value=-1表示撒谎node删除
             heapIndexMap.put(nodes[size - 1], -1);
             distanceMap.remove(nodes[size - 1]);
             // free C++同学还要把原本堆顶节点析构，对java同学不必
             nodes[size - 1] = null;
+            // 更新堆结构
             heapify(0, --size);
             return nodeRecord;
         }
@@ -139,6 +174,9 @@ public class Code06_Dijkstra {
             return heapIndexMap.containsKey(node);
         }
 
+        /**
+         * 是否在堆里
+         */
         private boolean inHeap(Node node) {
             return isEntered(node) && heapIndexMap.get(node) != -1;
         }
@@ -150,24 +188,6 @@ public class Code06_Dijkstra {
             nodes[index1] = nodes[index2];
             nodes[index2] = tmp;
         }
-    }
-
-    // 改进后的dijkstra算法
-    // 从head出发，所有head能到达的节点，生成到达每个节点的最小路径记录并返回
-    public static HashMap<Node, Integer> dijkstra2(Node head, int size) {
-        NodeHeap nodeHeap = new NodeHeap(size);
-        nodeHeap.addOrUpdateOrIgnore(head, 0);
-        HashMap<Node, Integer> result = new HashMap<>();
-        while (!nodeHeap.isEmpty()) {
-            NodeRecord record = nodeHeap.pop();
-            Node cur = record.node;
-            int distance = record.distance;
-            for (Edge edge : cur.edges) {
-                nodeHeap.addOrUpdateOrIgnore(edge.to, edge.weight + distance);
-            }
-            result.put(cur, distance);
-        }
-        return result;
     }
 
 }

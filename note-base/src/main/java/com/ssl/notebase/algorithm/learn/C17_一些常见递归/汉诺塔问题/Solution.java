@@ -1,4 +1,4 @@
-package com.ssl.notebase.algorithm.leetcode.编号刷题.汉诺塔问题;
+package com.ssl.notebase.algorithm.learn.C17_一些常见递归.汉诺塔问题;
 
 import java.util.List;
 
