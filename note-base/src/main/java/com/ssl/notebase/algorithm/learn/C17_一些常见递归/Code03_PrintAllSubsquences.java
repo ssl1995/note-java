@@ -71,7 +71,7 @@ public class Code03_PrintAllSubsquences {
     }
 
     public static void main(String[] args) {
-        String test = "abc";
+        String test = "red";
         List<String> ans1 = subs(test);
         List<String> ans2 = subsNoRepeat(test);
 

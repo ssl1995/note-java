@@ -1,6 +1,8 @@
 package com.ssl.notebase.interview.demo1;
 
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -10,53 +12,63 @@ import java.util.Scanner;
  */
 public class Main {
 
+    public static final String BAIDU = "Baidu";
+
     public static void main(String[] args) {
         Scanner scan = new Scanner(System.in);
         int n = scan.nextInt();
-        int[][] matrix = new int[n][n];
         for (int i = 0; i < n; i++) {
-            for (int j = 0; j < n; j++) {
-                matrix[i][j] = scan.nextInt();
-            }
+            printBaidu(scan.next());
         }
-        rotate(matrix);
-        rotate(matrix);
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < n; j++) {
-                System.out.print(matrix[i][j]+" ");
-            }
-            System.out.println();
-        }
-
     }
 
-    public static void rotate(int[][] matrix) {
-        if (matrix == null || matrix.length < 2) {
+    private static void printBaidu(String str) {
+        if (str == null) {
+            System.out.println("No");
+        } else {
+            List<String> permutation = permutation(str);
+            if (permutation.contains(BAIDU)) {
+                System.out.println("Yes");
+            } else {
+                System.out.println("No");
+            }
+        }
+    }
+
+    private static List<String> permutation(String s) {
+        if (s == null) {
+            return new ArrayList<>();
+        }
+        List<String> res = new ArrayList<>();
+        char[] cs = s.toCharArray();
+        process(cs, 0, res);
+        return res;
+    }
+
+    private static void process(char[] cs, int index, List<String> res) {
+        if (index == cs.length) {
+            res.add(String.valueOf(cs));
+        } else {
+            boolean[] visited = new boolean[256];
+            for (int i = index; i < cs.length; i++) {
+                if (!visited[cs[i]]) {
+                    visited[cs[i]] = true;
+                    swap(cs, index, i);
+                    process(cs, index + 1, res);
+                    swap(cs, index, i);
+                }
+            }
+        }
+    }
+
+    private static void swap(char[] cs, int i, int j) {
+        if (i == j) {
             return;
         }
-        // 左上角和右下角坐标
-        int tR = 0, tC = 0;
-        int dR = matrix.length - 1, dC = matrix[0].length - 1;
-
-        while (tR < dR) {
-            rotateEdge(matrix, tR++, tC++, dR--, dC--);
-        }
+        char temp = cs[i];
+        cs[i] = cs[j];
+        cs[j] = temp;
     }
 
-    private static void rotateEdge(int[][] matrix, int tR, int tC, int dR, int dC) {
-        // 每次的交换次数
-        int times = dR - tR;
-        int temp = 0;
-        for (int i = 0; i < times; i++) {
-            // 每次暂存交换第一个数据
-            temp = matrix[tR][tC + i];
-
-            // 画图，定位四个点
-            matrix[tR][tC + i] = matrix[dR - i][tC];
-            matrix[dR - i][tC] = matrix[dR][dC - i];
-            matrix[dR][dC - i] = matrix[tR + i][dC];
-            matrix[tR + i][dC] = temp;
-        }
-    }
 
 }
