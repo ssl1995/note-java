@@ -5,8 +5,16 @@ import java.util.List;
 
 public class Solution {
 
+    /**
+     * 找到s1中所有s2的异位词
+     * 输入: s = "cbaebabacd", p = "abc"
+     * 输出: [0,6]
+     * 解释:
+     * 起始索引等于 0 的子串是 "cba", 它是 "abc" 的异位词。
+     * 起始索引等于 6 的子串是 "bac", 它是 "abc" 的异位词。
+     */
     public List<Integer> findAnagrams(String s1, String s2) {
-        ArrayList<Integer> indices = new ArrayList<>();
+        List<Integer> indices = new ArrayList<>();
         if (s1.length() < s2.length()) {
             return indices;
         }
@@ -16,12 +24,14 @@ public class Solution {
             counts[s1.charAt(i) - 'a']--;
         }
         if (areAllZero(counts)) {
+            // 记录起始坐标
             indices.add(0);
         }
         for (int i = s2.length(); i < s1.length(); i++) {
             counts[s1.charAt(i) - 'a']--;
             counts[s1.charAt(i - s2.length()) - 'a']++;
             if (areAllZero(counts)) {
+                // 异位词起始坐标需要+1
                 indices.add(i - s2.length() + 1);
             }
         }

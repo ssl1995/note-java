@@ -1,10 +1,17 @@
 package com.ssl.notebase.algorithm.leetcode.剑指Offer.第三版.第3章_字符串.q17_包含所有字符的最短字符串;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public class Solution {
+    /**
+     * s中含有t的最短子字符串
+     * 输入：s = "ADOBECODEBANC", t = "ABC"
+     * 输出："BANC"
+     * 解释：最短子字符串 "BANC" 包含了字符串 t 的所有字符 'A'、'B'、'C'
+     */
     public String minWindow(String s, String t) {
-        HashMap<Character, Integer> charToCount = new HashMap<>();
+        Map<Character, Integer> charToCount = new HashMap<>();
         for (char c : t.toCharArray()) {
             charToCount.put(c, charToCount.getOrDefault(c, 0) + 1);
         }
@@ -45,8 +52,8 @@ public class Solution {
 
     public static void main(String[] args) {
         Solution solution = new Solution();
-        String s = "ADDBANCAD";
-        String t = "ABC";
+        String s = "ADOBECODEBANC";
+        String t = "BANC";
         System.out.println(solution.minWindow(s, t));
     }
 }

@@ -1,6 +1,13 @@
 package com.ssl.notebase.algorithm.leetcode.剑指Offer.第三版.第3章_字符串.q14_字符串中的变位词;
 
 public class Solution {
+
+    /**
+     * 判断一个字符是否是另一个字符的排列
+     * 输入：s1 = "ab" s2 = "eidbaooo"
+     * 输出：true
+     * 解释：s2 包含 s1 的排列之一 ("ba").
+     */
     public boolean checkInclusion(String s1, String s2) {
         if (s2.length() < s1.length()) {
             return false;
@@ -8,16 +15,22 @@ public class Solution {
         // 因为只有26个小写字母，可以使用数组充当map
         // 数组下标从0-25，分别对应a-z
         int[] counts = new int[26];
+        // 只用遍历s1长度
         for (int i = 0; i < s1.length(); i++) {
+            // s1++
             counts[s1.charAt(i) - 'a']++;
+            // s2--
             counts[s2.charAt(i) - 'a']--;
         }
-        // 如果s1、s2的字符都相同、长度一样长，那肯定s2是s1的变位词
+        // 如果s1、s2的字符都相同、长度一样长
         if (areAllZero(counts)) {
             return true;
         }
         // 指向到这里，说明s2的长度一定>s1的长度
+        // ab
+        // eidbaoo
         for (int i = s1.length(); i < s2.length(); i++) {
+            // 这个逻辑需要重新理解：
             // i相当于右指针=添加的元素，值-1
             counts[s2.charAt(i) - 'a']--;
             // i - s1.length()相当于左指针=删除元素，值+1
@@ -45,8 +58,8 @@ public class Solution {
     }
 
     public static void main(String[] args) {
-        String s1 = "ac";
-        String s2 = "dgcaf";
+        String s1 = "ab";
+        String s2 = "eidbaoo";
         Solution solution = new Solution();
         boolean res = solution.checkInclusion(s1, s2);
         System.out.println(res);
