@@ -1,4 +1,4 @@
-package com.ssl.notebase.algorithm.learn.C17_一些常见递归;
+package com.ssl.notebase.algorithm.learn.C17_一些常见递归.字符串的全排列;
 
 import java.util.ArrayList;
 import java.util.List;

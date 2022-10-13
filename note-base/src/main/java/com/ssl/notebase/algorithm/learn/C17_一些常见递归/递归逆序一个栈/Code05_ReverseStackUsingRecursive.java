@@ -1,4 +1,4 @@
-package com.ssl.notebase.algorithm.learn.C17_一些常见递归;
+package com.ssl.notebase.algorithm.learn.C17_一些常见递归.递归逆序一个栈;
 
 import java.util.Stack;
 
