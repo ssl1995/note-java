@@ -2,6 +2,9 @@ package com.ssl.notebase.algorithm.learn.C23_暴力递归到动态规划6;
 
 public class Code03_NQueens {
 
+    /**
+     * N皇后问题
+     */
     public static int num1(int n) {
         if (n < 1) {
             return 0;
