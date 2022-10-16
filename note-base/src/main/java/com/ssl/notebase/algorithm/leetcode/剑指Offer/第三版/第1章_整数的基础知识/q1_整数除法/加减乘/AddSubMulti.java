@@ -39,8 +39,24 @@ public class AddSubMulti {
         return add(~n, 1);
     }
 
+    private static int multi(int a, int b) {
+        if (a == 0 || b == 0) {
+            return 0;
+        }
+        int res = 0;
+        while (b != 0) {
+            if ((b & 1) == 1) {
+                res = add(res, a);
+            }
+            a <<= 1;
+            b >>>= 1;
+        }
+        return res;
+    }
+
+
     public static void main(String[] args) {
-        System.out.println(add(3, 2));
-        System.out.println(oppositeNumber(3));
+        System.out.println("add(3,2) = " + add(3, 2));
+        System.out.println("multi(3,2) = " + multi(3, 2));
     }
 }
