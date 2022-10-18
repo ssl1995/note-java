@@ -1,22 +1,15 @@
-package com.ssl.notebase.algorithm.leetcode.编号刷题.LC84_柱状图中最大矩形;
+package com.ssl.notebase.algorithm.learn.C25_单调栈;
 
-import java.util.Deque;
-import java.util.LinkedList;
 import java.util.Stack;
 
-/**
- * @author SongShengLin
- * @date 2022/1/29 3:29 PM
- * @description
- */
-public class Solution {
+// 测试链接：https://leetcode.cn/problems/largest-rectangle-in-histogram
+public class Code03_LargestRectangleInHistogram {
+
     /**
-     * 柱状图中最大矩形
-     * 输入：heights = [2,1,5,6,2,3]
-     * 输出：10
-     * 解释：最大的矩形为图中红色区域，面积为 10
+     * LC84 数组非负，代表直方图，求直方图的最大长方形面积
+     * 方法1：单调栈
      */
-    public int largestRectangleArea(int[] height) {
+    public static int largestRectangleArea1(int[] height) {
         if (height == null || height.length == 0) {
             return 0;
         }
@@ -46,10 +39,10 @@ public class Solution {
     }
 
     /**
-     * 数组非负，代表直方图，求直方图的最大长方形面积
+     * LC84:数组非负，代表直方图，求直方图的最大长方形面积
      * 方法2：时间最快的，栈用int优化啦
      */
-    public int largestRectangleArea2(int[] height) {
+    public static int largestRectangleArea2(int[] height) {
         if (height == null || height.length == 0) {
             return 0;
         }
@@ -75,9 +68,4 @@ public class Solution {
         return maxArea;
     }
 
-    public static void main(String[] args) {
-        Solution solution = new Solution();
-        int[] heights = {2, 1, 5, 6, 2, 3};
-        System.out.println(solution.largestRectangleArea(heights));
-    }
 }
