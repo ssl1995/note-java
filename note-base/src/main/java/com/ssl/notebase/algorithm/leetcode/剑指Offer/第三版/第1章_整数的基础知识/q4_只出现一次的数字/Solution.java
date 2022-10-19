@@ -1,5 +1,8 @@
 package com.ssl.notebase.algorithm.leetcode.剑指Offer.第三版.第1章_整数的基础知识.q4_只出现一次的数字;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * @author SongShengLin
  * @date 2021/9/9
@@ -26,7 +29,9 @@ public class Solution {
             // bitSums%3==0，说明是出现三次的数，不用统计
             // bitSums%3==1，说明是出现一次的数，该二进制位为1
             // bitSums%3==2，不存在，因为限定了1个数出现1次
-            res = (res << 1) + bitSums[i] % 3;// 举一反三：3改成n即可
+            // 举一反三：3改成n即可
+            // 这里需要加一个(res << 1)
+            res = (res << 1) + bitSums[i] % 3;
         }
         return res;
     }
