@@ -22,9 +22,11 @@ public class Solution {
         for (int i = 0; i < nums.length; i++) {
             // 遇到原数组中的0，累加-1；遇到1，累加1
             sum += nums[i] == 0 ? -1 : 1;
-            if (map.containsKey(sum)) {// 遇到map中已经有累加和为0，就统计长度
+            // 如果后面的累加和曾经出现过，说明中间出现了相同的0和1才能导致累加和重复出现
+            if (map.containsKey(sum)) {
+                // [j,j+1..i]记录j+1..i的长度 = i-j 不用加1
                 maxLen = Math.max(maxLen, i - map.get(sum));
-            } else {// 没有遇到累加和为0，就统计map<累加和，当前下标>
+            } else {
                 map.put(sum, i);
             }
         }
