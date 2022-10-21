@@ -25,6 +25,9 @@ public class NumMatrix {
         }
     }
 
+    /**
+     * 返回两个坐标之间区域的数字之和
+     */
     public int sumRegion(int row1, int col1, int row2, int col2) {
         // 结果 = [r2][c2]-[r1-1][c2]-[r2][c1-1]+[r1-1][c1-1]，多减了一个左上角的区域，最后要加上来
         // 转换成加了一行一列的sums，需要全部+1
