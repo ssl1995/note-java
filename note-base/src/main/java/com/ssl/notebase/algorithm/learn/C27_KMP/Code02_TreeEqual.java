@@ -14,6 +14,11 @@ public class Code02_TreeEqual {
         }
     }
 
+    /**
+     * 树small是否是树big的子树
+     * 子树：必须包含所有孩子结构
+     * 方法1：递归遍历
+     */
     public static boolean containsTree1(Node big, Node small) {
         if (small == null) {
             return true;
@@ -44,6 +49,11 @@ public class Code02_TreeEqual {
                 && isSameValueStructure(head1.right, head2.right);
     }
 
+    /**
+     * 树small是否是树big的子树
+     * 子树：必须包含所有孩子结构
+     * 方法2：将big和small序列化为字符串，判断small是否是big的子字符串
+     */
     public static boolean containsTree2(Node big, Node small) {
         if (small == null) {
             return true;
@@ -122,6 +132,9 @@ public class Code02_TreeEqual {
         return next;
     }
 
+    /**
+     * 判断两个字符是否相同
+     */
     public static boolean isEqual(String a, String b) {
         if (a == null && b == null) {
             return true;
