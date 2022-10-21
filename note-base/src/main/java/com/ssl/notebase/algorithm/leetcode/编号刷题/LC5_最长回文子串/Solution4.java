@@ -43,14 +43,19 @@ public class Solution4 {
                 pR = i + pArr[i];
                 index = i;
             }
-        }
-        // 找出cs中回文半径最大值maxLen和其对应的数组索引centerInter
-        for (int i = 0; i < cs.length; i++) {
+            // 最长回文长度发生变化，记录最长中心位置和最长右边界
             if (pArr[i] > maxLen) {
                 maxLen = pArr[i];
                 centerIndex = i;
             }
         }
+        // 找出cs中回文半径最大值maxLen和其对应的数组索引centerInter
+//        for (int i = 0; i < cs.length; i++) {
+//            if (pArr[i] > maxLen) {
+//                maxLen = pArr[i];
+//                centerIndex = i;
+//            }
+//        }
         // 根据cs中回文半径和对应坐标算原字符串中的最大回文长度和最大回文中心
         // 原字符串最大回文长度：maxLen-1，比如#a#b#a#，b的回文半径=4，那么原aba的最长回文子串长度为3
         maxLen = maxLen - 1;
