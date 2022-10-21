@@ -1,19 +1,24 @@
-package com.ssl.notebase.algorithm.learn.C27_KMP;
+package com.ssl.notebase.algorithm.leetcode.编号刷题.LC796_旋转字符串;
 
-public class Code03_IsRotation {
+/**
+ * @Author: SongShengLin
+ * @Date: 2022/10/21 16:15
+ * @Describe:
+ */
+public class Solution {
 
     /**
-     * 判断b是否是a的旋转串
+     * LC796:判断s是否是goal的旋转串
      */
-    public static boolean isRotation(String a, String b) {
+    public boolean rotateString(String s, String goal) {
         // 长度不相同
-        if (a == null || b == null || a.length() != b.length()) {
+        if (s == null || goal == null || s.length() != goal.length()) {
             return false;
         }
         // 拼接两次b = 自己拼接自己，任何长度为自己的子串都是b2的子串
-        String b2 = b + b;
+        String b2 = goal + goal;
         // 使用kmp算法判断a是否是b2的子串
-        return getIndexOf(b2, a) != -1;
+        return getIndexOf(b2, s) != -1;
     }
 
     // KMP Algorithm
@@ -59,12 +64,4 @@ public class Code03_IsRotation {
         }
         return next;
     }
-
-    public static void main(String[] args) {
-        String str1 = "yunzuocheng";
-        String str2 = "zuochengyun";
-        System.out.println(isRotation(str1, str2));
-
-    }
-
 }
