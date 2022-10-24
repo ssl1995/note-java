@@ -57,11 +57,51 @@ public class Solution {
         return true;
     }
 
+    /*************************练习***********************************/
+    public boolean checkInclusion1(String s1, String s2) {
+        if (s2 == null || s1.length() > s2.length()) {
+            return false;
+        }
+        int[] map = new int[256];
+        int M = s1.length();
+        int N = s2.length();
+        for (int i = 0; i < M; i++) {
+            map[s1.charAt(i) - 'a']++;
+            map[s2.charAt(i) - 'a']--;
+        }
+        if (checkZero(map)) {
+            return true;
+        }
+
+        for (int i = M; i < N; i++) {
+            map[s2.charAt(i) - 'a']--;
+            map[s2.charAt(i - M) - 'a']++;
+            if (checkZero(map)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean checkZero(int[] count) {
+        for (int i = 0; i < count.length; i++) {
+            if (count[i] != 0) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     public static void main(String[] args) {
         String s1 = "ab";
         String s2 = "eidbaoo";
         Solution solution = new Solution();
         boolean res = solution.checkInclusion(s1, s2);
-        System.out.println(res);
+        boolean res1 = solution.checkInclusion1(s1, s2);
+        if (res1 != res) {
+            System.out.println("错了！");
+        } else {
+            System.out.println("对了！结果：" + res);
+        }
     }
 }

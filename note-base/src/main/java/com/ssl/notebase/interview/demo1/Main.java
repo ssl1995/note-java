@@ -12,62 +12,37 @@ import java.util.Scanner;
  */
 public class Main {
 
-    public static final String BAIDU = "Baidu";
-
-    public static void main(String[] args) {
-        Scanner scan = new Scanner(System.in);
-        int n = scan.nextInt();
-        for (int i = 0; i < n; i++) {
-            printBaidu(scan.next());
+    public boolean checkInclusion(String s1, String s2) {
+        if (s2 == null || s1.length() < s2.length()) {
+            return false;
         }
-    }
+        int[] map = new int[256];
+        int M = s1.length();
+        int N = s2.length();
+        for (int i = 0; i < N; i++) {
+            map[s2.charAt(i) - 'a']++;
+            map[s1.charAt(i) - 'a']--;
+        }
+        if (checkZero(map)) {
+            return true;
+        }
 
-    private static void printBaidu(String str) {
-        if (str == null) {
-            System.out.println("No");
-        } else {
-            List<String> permutation = permutation(str);
-            if (permutation.contains(BAIDU)) {
-                System.out.println("Yes");
-            } else {
-                System.out.println("No");
+        for (int i = N; i < M; i++) {
+            map[s1.charAt(i) - 'a']--;
+            if (checkZero(map)) {
+                return true;
             }
         }
+        return false;
     }
 
-    private static List<String> permutation(String s) {
-        if (s == null) {
-            return new ArrayList<>();
-        }
-        List<String> res = new ArrayList<>();
-        char[] cs = s.toCharArray();
-        process(cs, 0, res);
-        return res;
-    }
-
-    private static void process(char[] cs, int index, List<String> res) {
-        if (index == cs.length) {
-            res.add(String.valueOf(cs));
-        } else {
-            boolean[] visited = new boolean[256];
-            for (int i = index; i < cs.length; i++) {
-                if (!visited[cs[i]]) {
-                    visited[cs[i]] = true;
-                    swap(cs, index, i);
-                    process(cs, index + 1, res);
-                    swap(cs, index, i);
-                }
+    private boolean checkZero(int[] count) {
+        for (int i = 0; i < count.length; i++) {
+            if (count[i] != 0) {
+                return false;
             }
         }
-    }
-
-    private static void swap(char[] cs, int i, int j) {
-        if (i == j) {
-            return;
-        }
-        char temp = cs[i];
-        cs[i] = cs[j];
-        cs[j] = temp;
+        return true;
     }
 
 

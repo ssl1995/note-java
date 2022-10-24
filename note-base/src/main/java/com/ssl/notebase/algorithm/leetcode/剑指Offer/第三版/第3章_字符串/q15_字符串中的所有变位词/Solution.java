@@ -1,7 +1,10 @@
 package com.ssl.notebase.algorithm.leetcode.剑指Offer.第三版.第3章_字符串.q15_字符串中的所有变位词;
 
+import org.springframework.util.CollectionUtils;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class Solution {
 
@@ -47,6 +50,71 @@ public class Solution {
     private boolean areAllZero(int[] counts) {
         for (int count : counts) {
             if (count != 0) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /*************************练习***********************************/
+    public List<Integer> findAnagrams1(String s, String p) {
+        // s:长。p：短
+        if (p == null || s.length() < p.length()) {
+            return new ArrayList<>();
+        }
+        int M = s.length();
+        int N = p.length();
+        List<Integer> res = new ArrayList<>();
+        int[] map = new int[26];
+        for (int i = 0; i < N; i++) {
+            map[p.charAt(i) - 'a']++;
+            map[s.charAt(i) - 'a']--;
+        }
+        if (checkZero(map)) {
+            res.add(0);
+        }
+
+        for (int i = N; i < M; i++) {
+            map[s.charAt(i) - 'a']--;
+            map[s.charAt(i - N) - 'a']++;
+            if (checkZero(map)) {
+                res.add(i - N + 1);
+            }
+        }
+
+        return res;
+    }
+
+    private boolean checkZero(int[] count) {
+        for (int i = 0; i < count.length; i++) {
+            if (count[i] != 0) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public static void main(String[] args) {
+        Solution solution = new Solution();
+        String s = "cbaebabacd";
+        String p = "abc";
+        List<Integer> res1 = solution.findAnagrams(s, p);
+        List<Integer> res2 = solution.findAnagrams1(s, p);
+        if (res1 != res2) {
+            System.out.println("错");
+            System.out.println("res1:" + res1);
+            System.out.println("res2:" + res2);
+        } else {
+            System.out.println("对");
+        }
+    }
+
+    private boolean checkCollection(List<Integer> res1, List<Integer> res2) {
+        if (res1.size() != res2.size()) {
+            return false;
+        }
+        for (int i = 0; i < res1.size(); i++) {
+            if (!Objects.equals(res1.get(i), res2.get(i))) {
                 return false;
             }
         }

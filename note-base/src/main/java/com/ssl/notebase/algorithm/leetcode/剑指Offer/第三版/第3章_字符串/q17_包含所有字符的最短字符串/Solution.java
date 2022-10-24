@@ -36,6 +36,7 @@ public class Solution {
             } else {// count<=0，说明s子字符串中都出现了t
                 // 更新左右指针
                 if (end - start < minLen) {
+                    // end已经提前+1,所以这里长度不需要+1
                     minLen = end - start;
                     minStart = start;
                     minEnd = end;
@@ -54,10 +55,58 @@ public class Solution {
         return minLen < Integer.MAX_VALUE ? s.substring(minStart, minEnd) : "";
     }
 
+    /*************************练习***********************************/
+    public String minWindow1(String s, String t) {
+        if (t == null || s.length() < t.length()) {
+            return "";
+        }
+        Map<Character, Integer> map = new HashMap<>();
+        for (char c : t.toCharArray()) {
+            map.put(c, map.getOrDefault(c, 0) + 1);
+        }
+
+        int start = 0;
+        int end = 0;
+        int minStart = 0;
+        int minEnd = 0;
+        int minLen = Integer.MAX_VALUE;
+
+        int count = map.size();
+        while (end < s.length() || (count == 0 && end == s.length())) {
+            if (count > 0) {
+                char c = s.charAt(end);
+                if (map.containsKey(c)) {
+                    map.put(c, map.get(c) - 1);
+                    if (map.get(c) == 0) {
+                        count--;
+                    }
+                }
+
+                end++;
+            } else {
+                if (end - start < minLen) {
+                    minLen = end - start;
+                    minStart = start;
+                    minEnd = end;
+                }
+                char c = s.charAt(start);
+                if (map.containsKey(c)) {
+                    map.put(c, map.get(c) + 1);
+                    if (map.get(c) == 1) {
+                        count++;
+                    }
+                }
+                start++;
+            }
+        }
+        return minLen < Integer.MAX_VALUE ? s.substring(minStart, minEnd) : "";
+    }
+
     public static void main(String[] args) {
         Solution solution = new Solution();
         String s = "ADOBECODEBANC";
         String t = "BANC";
         System.out.println(solution.minWindow(s, t));
+        System.out.println(solution.minWindow1(s, t));
     }
 }
