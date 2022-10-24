@@ -11,21 +11,24 @@ public class Solution {
      * 解释：最短子字符串 "BANC" 包含了字符串 t 的所有字符 'A'、'B'、'C'
      */
     public String minWindow(String s, String t) {
-        Map<Character, Integer> charToCount = new HashMap<>();
+        Map<Character, Integer> map = new HashMap<>();
+        // 1.先记录t中所有字符，出现的次数
         for (char c : t.toCharArray()) {
-            charToCount.put(c, charToCount.getOrDefault(c, 0) + 1);
+            map.put(c, map.getOrDefault(c, 0) + 1);
         }
-        // count表示出现在t中，但还没有出现在s中子字符串中字符个数
-        int count = charToCount.size();
+        // 2.count表示出现在t中，但还没有出现在s中子字符串中字符个数
+        int count = map.size();
+        // 因为需要记录最短子字符串,使用4个指针来保存
         int start = 0, end = 0, minStart = 0, minEnd = 0;
         int minLen = Integer.MAX_VALUE;
+        // 循环结束条件：1.还有元素需要遍历。2.遍历指针end遍历来到最后位置，左指针必须来到再次使它+1的位置跳出
         while (end < s.length() || (count == 0 && end == s.length())) {
             // count>0说明还有在t中出现，但s中子字符串没有出现的字符
             if (count > 0) {
                 char endChar = s.charAt(end);
-                if (charToCount.containsKey(endChar)) {
-                    charToCount.put(endChar, charToCount.get(endChar) - 1);
-                    if (charToCount.get(endChar) == 0) {// =0说明在t和s中出现次数相同
+                if (map.containsKey(endChar)) {
+                    map.put(endChar, map.get(endChar) - 1);
+                    if (map.get(endChar) == 0) {// =0说明在t和s中出现次数相同
                         count--;
                     }
                 }
@@ -38,9 +41,10 @@ public class Solution {
                     minEnd = end;
                 }
                 char startChar = s.charAt(start);
-                if (charToCount.containsKey(startChar)) {
-                    charToCount.put(startChar, charToCount.get(startChar) + 1);
-                    if (charToCount.get(startChar) == 1) {
+                if (map.containsKey(startChar)) {
+                    map.put(startChar, map.get(startChar) + 1);
+                    // 只有从0->1的字符，表示左指针多减了t中出现的字母，count++
+                    if (map.get(startChar) == 1) {
                         count++;
                     }
                 }
