@@ -25,7 +25,7 @@ public class Solution2 {
             len1 = Math.max(len1, len2);
             if (len1 > maxLen) {
                 maxLen = len1;
-                // 根据i和maxLen算begin下标
+                // i相当于回文中心，根据i和maxLen算begin下标
                 // 奇数：i-maxLen/2
                 // 偶数：i-maxLen/2+1
                 // 统一：i-(maxLen-1)/2
