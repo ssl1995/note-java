@@ -8,6 +8,11 @@ import com.ssl.notebase.algorithm.leetcode.utils.ListNode;
  * @description 两个链表的第1个重合结点
  */
 public class Solution {
+
+    /**
+     * 两个单链表的相交结点
+     * 因为两个链表都是单链表，所以都是无环的，求相交结点
+     */
     public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
         // 记录两个链表长度
         int count1 = getListCount(headA);
@@ -38,4 +43,37 @@ public class Solution {
         }
         return count;
     }
+
+    /***********练习***************/
+    public ListNode getIntersectionNode1(ListNode headA, ListNode headB) {
+        if (headA == null || headB == null) {
+            return null;
+        }
+        int lenA = getListLen(headA);
+        int lenB = getListLen(headB);
+        int diff = Math.abs(lenA - lenB);
+        ListNode nodeA = lenA > lenB ? headA : headB;
+        ListNode nodeB = nodeA == headA ? headB : headA;
+        while (diff > 0) {
+            nodeA = nodeA.next;
+            diff--;
+        }
+        while (nodeA != nodeB) {
+            nodeA = nodeA.next;
+            nodeB = nodeB.next;
+        }
+
+        return nodeA;
+    }
+
+    private int getListLen(ListNode node) {
+        int count = 0;
+        while (node != null) {
+            node = node.next;
+            count++;
+        }
+        return count;
+    }
+
 }
+
