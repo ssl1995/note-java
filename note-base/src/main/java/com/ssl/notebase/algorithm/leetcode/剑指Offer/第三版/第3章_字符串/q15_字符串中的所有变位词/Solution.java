@@ -1,7 +1,5 @@
 package com.ssl.notebase.algorithm.leetcode.剑指Offer.第三版.第3章_字符串.q15_字符串中的所有变位词;
 
-import org.springframework.util.CollectionUtils;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -78,6 +76,9 @@ public class Solution {
             map[s.charAt(i) - 'a']--;
             map[s.charAt(i - N) - 'a']++;
             if (checkZero(map)) {
+                // s = abac,p=abc
+                // 当i来到3位置c的位置时，需要保存1位置b的坐标
+                // 3-(p的长度)+1
                 res.add(i - N + 1);
             }
         }
