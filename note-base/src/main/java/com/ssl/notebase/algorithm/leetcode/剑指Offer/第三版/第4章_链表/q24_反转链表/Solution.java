@@ -8,16 +8,37 @@ import com.ssl.notebase.algorithm.leetcode.utils.ListNode;
  * @description 反转单向链表
  */
 public class Solution {
+    /**
+     * 反转单链表
+     */
     public ListNode reverseList(ListNode head) {
-        // pre = 待反转结点的前一个结点，最后返回它
+        if (head == null) {
+            return null;
+        }
         ListNode pre = null;
         ListNode cur = head;
+        ListNode next = null;
         while (cur != null) {
-            ListNode next = cur.next;
+            next = cur.next;
             cur.next = pre;
             pre = cur;
             cur = next;
         }
+
         return pre;
+    }
+
+    /**
+     * 反转单链表
+     * 递归法
+     */
+    public ListNode reverseList1(ListNode head) {
+        if (head == null || head.next == null) {
+            return head;
+        }
+        ListNode ret = reverseList1(head.next);
+        head.next.next = head;
+        head.next = null;
+        return ret;
     }
 }
