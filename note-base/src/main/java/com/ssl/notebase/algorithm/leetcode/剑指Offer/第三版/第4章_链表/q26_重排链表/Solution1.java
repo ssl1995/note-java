@@ -3,12 +3,14 @@ package com.ssl.notebase.algorithm.leetcode.剑指Offer.第三版.第4章_链表
 import com.ssl.notebase.algorithm.leetcode.utils.ListNode;
 
 /**
- * @author SongShengLin
- * @date 2021/9/26 10:15 上午
- * @description 链表重排
+ * @Author: SongShengLin
+ * @Date: 2022/10/27 08:43
+ * @Describe:
  */
-public class Solution {
+public class Solution1 {
+
     /**
+     * 练习
      * 重排链表
      * 1->2->3->4->5
      * 返回：1->5->2->4->3
@@ -97,6 +99,5 @@ public class Solution {
             n1 = n1.next;
         }
     }
-
 
 }
