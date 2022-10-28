@@ -6,15 +6,22 @@ package com.ssl.notebase.algorithm.leetcode.剑指Offer.第三版.第4章_链表
  * @description
  */
 public class Solution {
+    /**
+     * 排序的循环链表
+     * 在一个已经递增排序的链表中插入一个结点，使得它还是递增排序的
+     */
     public Node insert(Node head, int insertVal) {
         Node node = new Node(insertVal);
-        if (head == null) {// 没有结点
+        // 原链表没有结点
+        if (head == null) {
             head = node;
             node.next = head;
-        } else if (head.next == null) {// 只有一个结点
+        } else if (head.next == null) {
+            // 原链表只有一个结点
             head.next = node;
             node.next = head;
-        } else {// 大于1个结点
+        } else {
+            // 原链表超过一个结点
             insertNode(head, node);
         }
         return head;
@@ -24,26 +31,26 @@ public class Solution {
         Node cur = head;
         Node next = head.next;
         Node biggest = head;
-        // 遍历找到cur.val<=node.val<=next.val 并且 找到最大值结点(排序链表中最大值结点就是末尾节点，也就是next!=head)
-        while ((cur.val > node.val || next.val < node.val) && next != head) {
+        // 1.找到cur<=node<=next 且 next不是头结点
+        while (!(cur.val <= node.val && node.val <= next.val)
+                && next != head) {
             cur = next;
             next = next.next;
-            // 一定要有=，因为相同节点取最后
+            // 遍历过程中记录最大值结点
             if (cur.val >= biggest.val) {
                 biggest = cur;
             }
         }
         // 插入node结点:cur.val<=node.val<=next.val存在，就插入中间
-        if (cur.val <= node.val && next.val >= node.val) {
+        if (cur.val <= node.val && node.val <= next.val) {
             cur.next = node;
             node.next = next;
-        } else {// 如果不存在，就插入到最大值和头结点之间
-            // head不一定是从最小值开始指向，所以不能用下面两行
-            // biggest.next = node;
-            // node.next = head;
-
-            node.next = biggest.next;
+        } else {
+            // 如果不存在，就插入到最大值和头结点之间
+            // head不一定是从最小值开始指向，所以需要先记录bigNext
+            Node bigNext = biggest.next;
             biggest.next = node;
+            node.next = bigNext;
         }
     }
 }
