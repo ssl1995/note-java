@@ -1,39 +1,44 @@
 package com.ssl.notebase.algorithm.leetcode.剑指Offer.第三版.第5章_哈希表.q32_有效的变位词;
 
-import java.util.HashMap;
-import java.util.Map;
-
 /**
  * @author SongShengLin
  * @date 2021/10/6 11:17 上午
  * @description
  */
 public class Solution {
+
+    /**
+     * 有效的变位词
+     * 若 s 和 t 中每个字符出现的次数都相同且字符顺序不完全相同，则称 s 和 t 互为变位词（字母异位词）。
+     * 输入: s = "anagram", t = "nagaram"
+     * 输出: true
+     */
     public boolean isAnagram(String s, String t) {
+        // 1.长度不相同，不是变位词
         if (s.length() != t.length()) {
             return false;
         }
-        // 判断元素顺序是否相同
+        // 2.长度相同，每个位置元素都相同，不是变位词
         for (int i = 0; i < s.length(); i++) {
             if (s.charAt(i) != t.charAt(i)) {
                 break;
             }
             if (i == s.length() - 1) {
+                // LC242:返回true
                 return false;
             }
         }
-        // 元素顺序不相同，如果只含英文小写字母，用int[]；如果是Unicode编码集，用map
-        Map<Character, Integer> counts = new HashMap<>();
-
+        // 3.长度不相同，每个位置不完全相同，使用map和int[]判断每个字符出现的次数
+        // 进阶：如果是Unicode编码集，可以用map
+        int[] map = new int[256];
         for (char c : s.toCharArray()) {
-            counts.put(c, counts.getOrDefault(c, 0) + 1);
+            map[c - 'a']++;
         }
-
         for (char c : t.toCharArray()) {
-            if (!counts.containsKey(c) || counts.get(c) == 0) {
+            if (map[c - 'a'] == 0) {
                 return false;
             }
-            counts.put(c, counts.get(c) - 1);
+            map[c - 'a']--;
         }
         return true;
     }
