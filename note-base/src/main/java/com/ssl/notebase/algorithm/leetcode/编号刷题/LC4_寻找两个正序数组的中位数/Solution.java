@@ -13,48 +13,134 @@ public class Solution {
      * 解释：合并数组 = [1,2,3,4] ，中位数 (2 + 3) / 2 = 2.5
      */
     public double findMedianSortedArrays(int[] nums1, int[] nums2) {
-        // 加快搜索，让nums1变成短数组
-        if (nums1.length > nums2.length) {
-            int[] temp = nums1;
-            nums1 = nums2;
-            nums2 = temp;
-        }
-
-        // m是短数组的长度
-        int m = nums1.length;
-        // n是长数组的长度
-        int n = nums2.length;
-
-        int left = 0;
-        int right = m;
-
-        int leftMax = 0;
-        int rightMin = 0;
-
-        while (left <= right) {
-            // i对短数组每次进行二分，j是根据left_part和right_part推出来的公式
-            int i = (left + right) / 2;
-            int j = (m + n + 1) / 2 - i;
-
-            int nums1_im1 = (i == 0 ? Integer.MIN_VALUE : nums1[i - 1]);
-            int nums1_i = (i == m ? Integer.MAX_VALUE : nums1[i]);
-
-            int nums2_jm1 = (j == 0 ? Integer.MIN_VALUE : nums2[j - 1]);
-            int nums2_j = (j == n ? Integer.MAX_VALUE : nums2[j]);
-
-            if (nums1_im1 <= nums2_j) {
-                // 找出左半部分的最大值和右半部分的最小值
-                leftMax = Math.max(nums1_im1, nums2_jm1);
-                rightMin = Math.min(nums1_i, nums2_j);
-
-                left = i + 1;
+        int size = nums1.length + nums2.length;
+        boolean even = (size & 1) == 0;
+        if (nums1.length != 0 && nums2.length != 0) {
+            if (even) {
+                return (double) ((findKthNum(nums1, nums2, size / 2)) + (findKthNum(nums1, nums2, size / 2 + 1))) / 2d;
             } else {
-                // 以i的左右两边来二分，不是right = j-1, 与j没关闭
-                right = i - 1;
+                return findKthNum(nums1, nums2, size / 2 + 1);
+            }
+        } else if (nums1.length != 0) {
+            if (even) {
+                return (double) (nums1[(size - 1) / 2] + nums1[size / 2]) / 2;
+            } else {
+                return nums1[size / 2];
+            }
+        } else if (nums2.length != 0) {
+            if (even) {
+                return (double) (nums2[(size - 1) / 2] + nums2[size / 2]) / 2;
+            } else {
+                return nums2[size / 2];
+            }
+        } else {
+            return 0;
+        }
+    }
+
+    /**
+     * 求2个有序数组合并后的第k个数
+     *
+     * @param arr1 有序数组,两个数组不一定等长
+     * @param arr2 有序数组
+     * @param k    合并后的第k个数，从1开始
+     */
+    private int findKthNum(int[] arr1, int[] arr2, int k) {
+        // short:10个数
+        // long:17个数
+        int[] longs = arr1.length >= arr2.length ? arr1 : arr2;
+        int[] shorts = arr1.length < arr2.length ? arr1 : arr2;
+        int l = longs.length;
+        int s = shorts.length;
+        // 1<=k<=短数组长度s
+        // 1<= k=5 <=10
+        if (k <= s) {
+            // 第k小的数在短数组内
+            return getUpMedian(shorts, 0, k - 1, longs, 0, k - 1);
+        }
+        // 长数组长度l <k<=两个数组之和
+        // 17 < k=23 < 27
+        if (k > l) {
+            // 由于剩下不可能的位置加起来只有k-1个,需要手动扣掉可能性位置中的2个
+            // 扣掉：短数组可能性中的第一个和常数组末尾比较
+            if (shorts[k - l - 1] >= longs[l - 1]) {
+                return shorts[k - l - 1];
+            }
+            // 扣掉：长数组可能性中的第一个和断数组末尾比较
+            if (longs[k - s - 1] >= shorts[s - 1]) {
+                return longs[k - s - 1];
+            }
+            return getUpMedian(shorts, k - l, s - 1, longs, k - s, l - 1);
+        }
+        // 短数组长度<=k<=长数组长度
+        // 短数组都有可能
+        // 长数组中的可能大于短数组可能，需要手动扣掉一个数
+        // 扣掉：长数组可能性第一个与短数组末尾比较
+        if (shorts[s - 1] <= longs[k - s - 1]) {
+            return longs[k - s - 1];
+        }
+        return getUpMedian(shorts, 0, s - 1, longs, k - s, k - 1);
+    }
+
+
+    /**
+     * 两个有序、长度相同的数组中，求合并后的上中位数
+     * 输入参数保证s1、e1和s2、e2长度相同
+     */
+    private int getUpMedian(int[] nums1, int s1, int e1, int[] nums2, int s2, int e2) {
+        int mid1 = 0;
+        int mid2 = 0;
+        // while模拟递归过程
+        while (s1 < e1) {
+            mid1 = s1 + (e1 - s1) / 2;
+            mid2 = s2 + (e2 - s2) / 2;
+            // 两个有序数组，中间值如果相同，上中位数就是它本身
+            if (nums1[mid1] == nums2[mid2]) {
+                return nums1[mid1];
+            }
+            if (((e1 - s1 + 1) & 1) == 0) {
+                // 偶数长度
+                // 第一个数组的中位数 > 第二个数组的中位数
+                // nums1：1, 2 ,3 ,4
+                // nums2：1',2',3',4'
+                // 假设假设2>2',那么不可能的数就是1',2',3,4
+                // 可能是中位数的位置:1,2,3',4'
+                if (nums1[mid1] > nums2[mid2]) {
+                    e1 = mid1;
+                    s2 = mid2 + 1;
+                } else {
+                    e2 = mid2;
+                    s1 = mid1 + 1;
+                }
+            } else {
+                // 奇数长度
+                // 第一个数组的中位数 > 第二个数组的中位数
+                // nums1：1, 2 ,3 ,4, 5
+                // nums2：1',2',3',4',5'
+                // 假设假设3>3',那么不可能的数就是3,4,5,1',2',可能位置就是其他位置
+                // 但是这时候递归调用数组不等长
+                if (nums1[mid1] > nums2[mid2]) {
+                    // 为了解决数组长度不等长，不能递归，手动验证3'和2的大小
+                    if (nums2[mid2] >= nums1[mid1 - 1]) {
+                        return nums2[mid2];
+                    }
+                    e1 = mid1 - 1;
+                    // 如果没有返回，多淘汰一个mid2，数组就变等长了
+                    s2 = mid2 + 1;
+                } else {
+                    // 手动验证
+                    if (nums1[mid1] >= nums2[mid2 - 1]) {
+                        return nums1[mid1];
+                    }
+                    e2 = mid2 - 1;
+                    s1 = mid1 + 1;
+                }
             }
         }
-
-        return (m + n) % 2 == 0 ? (leftMax + rightMin) / 2.0 : leftMax;
+        // while结束，得到2个位置
+        // 如果是偶数返回上中位数,奇数两者都行
+        // 综合取min即可
+        return Math.min(nums1[s1], nums2[s2]);
     }
 
     public static void main(String[] args) {
