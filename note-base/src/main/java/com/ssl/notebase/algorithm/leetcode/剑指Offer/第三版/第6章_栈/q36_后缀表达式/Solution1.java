@@ -4,11 +4,11 @@ import java.util.Deque;
 import java.util.LinkedList;
 
 /**
- * @author SongShengLin
- * @date 2021/10/6 8:40 下午
- * @description
+ * @Author: SongShengLin
+ * @Date: 2022/10/31 09:52
+ * @Describe:
  */
-public class Solution {
+public class Solution1 {
 
     /**
      * 后缀表达值求值
