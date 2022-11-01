@@ -9,16 +9,15 @@
         <relativePath/>
     </parent>
 
-    <groupId>com.ssl</groupId>
-    <artifactId>note-base</artifactId>
+    <groupId>com.ssl.note</groupId>
+    <artifactId>base</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>note-base</name>
-    <description>note-base</description>
+    <name>base</name>
+    <description>base</description>
 
     <properties>
         <java.version>8</java.version>
     </properties>
-
 
     <dependencies>
         <dependency>
