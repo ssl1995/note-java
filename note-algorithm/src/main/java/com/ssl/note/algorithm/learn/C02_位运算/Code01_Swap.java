@@ -4,31 +4,25 @@ public class Code01_Swap {
 
     public static void main(String[] args) {
 
-        int a = 1;
-        int b = 2;
-        a = a ^ b;
-        b = a ^ b;
-        a = a ^ b;
-
-        System.out.println(a);
-        System.out.println(b);
-
-        System.out.println("-----");
-
         int[] arr = {1, 2, 3};
-        // i==j,会把结果为0
-        swap1(arr, 0, 0);
-
+        // 不同位置正常交换，没有问题
+        swap1(arr, 0, 1);
         System.out.println(arr[0]);
         System.out.println(arr[1]);
-
         System.out.println("-----");
-        int[] arr1 = {1, 2, 3};
-        // i==j,直接return
-        swap2(arr1, 0, 0);
 
-        System.out.println(arr1[0]);
-        System.out.println(arr1[1]);
+        arr = new int[]{1, 2, 3};
+        // 相同位置交换，会变成0
+        swap1(arr, 0, 0);
+        System.out.println(arr[0]);// 0位置变成0
+        System.out.println(arr[1]);// 2位置没变
+        System.out.println("-----");
+
+        arr = new int[]{1, 2, 3};
+        // 加i==j，就能防止这种情况
+        swap2(arr, 0, 0);
+        System.out.println(arr[0]);
+        System.out.println(arr[1]);
     }
 
     public static void swap1(int[] arr, int i, int j) {
