@@ -14,7 +14,7 @@ public class Code02_EvenTimesOddTimes {
     }
 
     /**
-     * arr中，有两种数(两个数不相同)，出现奇数次
+     * arr中，有两种数(两个数不相同)，出现奇数次；其余数出现偶数次
      */
     public static void printOddTimesNum2(int[] arr) {
         // 1.干掉所有偶数，得到a^b
@@ -27,8 +27,9 @@ public class Code02_EvenTimesOddTimes {
         // eor最右侧的1，提取出来
         // eor :     00110010110111000
         // rightOne :00000000000001000
-        // 2.取最右侧的1
-        int rightOne = eor & (~eor + 1); // 提取出最右的1
+        // 2.取最右侧的1 = 一个数 & 它的相反数
+        // 一个数的相反数 = 自己取反 + 1
+        int rightOne = eor & (~eor + 1);
 
         // 3.将这个1区分arr所有数
         int a = 0; // eor'
@@ -45,7 +46,7 @@ public class Code02_EvenTimesOddTimes {
 
 
     /**
-     * N中1的次数
+     * 一个数中二进制1的次数
      */
     public static int bit1counts(int N) {
         int count = 0;
@@ -64,11 +65,17 @@ public class Code02_EvenTimesOddTimes {
 
 
     public static void main(String[] args) {
+        // 2出现了一次，其余数出现偶数次
         int[] arr1 = {3, 3, 2, 3, 1, 1, 1, 3, 1, 1, 1};
         printOddTimesNum1(arr1);
 
+        // 3出现3次，2出现5次，其余数出现偶数次
         int[] arr2 = {4, 3, 4, 2, 2, 2, 4, 1, 1, 1, 3, 3, 1, 1, 1, 4, 2, 2};
         printOddTimesNum2(arr2);
+
+        // 一个数中二进制1的次数
+        int num = 3;
+        System.out.println(bit1counts(num));
 
     }
 
