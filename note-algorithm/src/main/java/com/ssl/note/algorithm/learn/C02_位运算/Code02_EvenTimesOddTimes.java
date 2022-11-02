@@ -77,6 +77,11 @@ public class Code02_EvenTimesOddTimes {
         int num = 3;
         System.out.println(bit1counts(num));
 
+        // 相反数
+        System.out.println("num:" + num);
+        System.out.println("num的相反数:" + (~num + 1));
+        System.out.println("num最右侧的1:" + (num & (~num + 1)));
+
     }
 
 }

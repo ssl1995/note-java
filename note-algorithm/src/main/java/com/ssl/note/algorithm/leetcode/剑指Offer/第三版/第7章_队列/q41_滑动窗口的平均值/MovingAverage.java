@@ -12,18 +12,18 @@ public class MovingAverage {
 
     private Queue<Integer> queue;
     private int sum;
-    private int cap;
+    private int size;
 
     public MovingAverage(int size) {
         queue = new LinkedList<>();
-        cap = size;
+        this.size = size;
     }
 
     public double next(int val) {
         queue.offer(val);
         sum += val;
         // 如果队列长度超过cap，sum减一个数，队列移出头部元素
-        if (queue.size() > cap) {
+        if (queue.size() > size) {
             sum -= queue.poll();
         }
         return (double) sum / queue.size();
