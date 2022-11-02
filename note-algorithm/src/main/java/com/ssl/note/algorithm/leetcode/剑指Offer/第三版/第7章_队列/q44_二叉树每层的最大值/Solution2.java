@@ -1,39 +1,36 @@
 package com.ssl.note.algorithm.leetcode.剑指Offer.第三版.第7章_队列.q44_二叉树每层的最大值;
 
-import java.util.ArrayList;
+import com.apple.laf.AquaIcon;
+
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
 /**
- * @author SongShengLin
- * @date 2021/10/9 9:13 上午
- * @description
+ * @Author: SongShengLin
+ * @Date: 2022/11/02 09:47
+ * @Describe:
  */
-public class Solution {
+public class Solution2 {
 
-    /**
-     * 二叉树中每层的最大值
-     * 方法1：单队列，和有限几个变量，节省空间复杂度
-     */
+
     public List<Integer> largestValues(TreeNode root) {
-        // 记录当前层的结点数量
-        int current = 0;
-        // 记录下一层的结点数量
+        if (root == null) {
+            return new LinkedList<>();
+        }
+        int cur = 0;
         int next = 0;
-        // 记录当前层的最大值
         int max = Integer.MIN_VALUE;
 
         Queue<TreeNode> queue = new LinkedList<>();
-        List<Integer> res = new ArrayList<>();
-        if (root != null) {
-            queue.offer(root);
-            current = 1;
-        }
+        queue.offer(root);
+        cur = 1;
 
+
+        List<Integer> res = new LinkedList<>();
         while (!queue.isEmpty()) {
             TreeNode node = queue.poll();
-            current--;
+            cur--;
             max = Math.max(max, node.val);
 
             if (node.left != null) {
@@ -45,15 +42,14 @@ public class Solution {
                 next++;
             }
 
-            // 当前层为0，更新下一层，记录这一层最大值结果
-            if (current == 0) {
-                current = next;
-                next = 0;
-                // 当cur=0时，才将最大值保存进结果集中
+            if (cur == 0) {
                 res.add(max);
+                cur = next;
+                next = 0;
                 max = Integer.MIN_VALUE;
             }
         }
+
         return res;
     }
 }
