@@ -1,7 +1,7 @@
 package com.ssl.note.algorithm.leetcode.剑指Offer.第三版.第7章_队列.q42_最近请求次数;
 
+import java.util.Deque;
 import java.util.LinkedList;
-import java.util.Queue;
 
 /**
  * @author SongShengLin
@@ -10,7 +10,7 @@ import java.util.Queue;
  */
 public class RecentCounter {
 
-    private Queue<Integer> queue;
+    private Deque<Integer> queue;
     private int size;
 
     public RecentCounter() {
@@ -28,11 +28,20 @@ public class RecentCounter {
     }
 
     public static void main(String[] args) {
-        Queue<Integer> queue = new LinkedList<>();
+        Deque<Integer> queue = new LinkedList<>();
         queue.offer(1);
         queue.offer(2);
         queue.offer(3);
         // peek=1才是头部
-        System.out.println(queue.peek());
+        System.out.println("peek:" + queue.peek());
+        System.out.println("peekFirst:" + queue.peekFirst());
+        System.out.println("peekLast:" + queue.peekLast());
+        System.out.println("-------------");
+        RecentCounter recentCounter = new RecentCounter();
+        // 先进先出，说明是队列
+        System.out.println(recentCounter.ping(1));
+        System.out.println(recentCounter.ping(100));
+        System.out.println(recentCounter.ping(3001));
+        System.out.println(recentCounter.ping(3002));
     }
 }
