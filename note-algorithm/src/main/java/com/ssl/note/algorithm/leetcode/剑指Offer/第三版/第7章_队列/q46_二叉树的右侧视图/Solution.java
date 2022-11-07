@@ -10,6 +10,10 @@ import java.util.Queue;
  * @description
  */
 public class Solution {
+
+    /**
+     * 二叉树的右侧视图
+     */
     public List<Integer> rightSideView(TreeNode root) {
         if (root == null) {
             return new LinkedList<>();
