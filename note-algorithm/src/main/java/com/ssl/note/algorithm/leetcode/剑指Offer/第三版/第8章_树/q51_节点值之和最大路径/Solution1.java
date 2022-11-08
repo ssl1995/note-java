@@ -7,6 +7,7 @@ package com.ssl.note.algorithm.leetcode.剑指Offer.第三版.第8章_树.q51_�
  */
 public class Solution1 {
 
+
     private int maxSum = Integer.MIN_VALUE;
 
     // 这个方法跑力扣124不会超时
@@ -20,14 +21,15 @@ public class Solution1 {
         if (root == null) {
             return 0;
         }
-
+        // 左右孩子的最大值
         int left = Math.max(dfs(root.left), 0);
         int right = Math.max(dfs(root.right), 0);
-
-        int max = root.val + left + right;
-
-        maxSum = Math.max(maxSum, max);
+        // 包含当前节点的最大值
+        int containsRoot = left + right + root.val;
+        maxSum = Math.max(containsRoot, maxSum);
 
         return root.val + Math.max(left, right);
     }
+
+
 }

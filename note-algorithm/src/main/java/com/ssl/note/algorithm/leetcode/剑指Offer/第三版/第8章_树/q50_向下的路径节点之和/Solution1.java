@@ -4,16 +4,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * @author SongShengLin
- * @date 2021/10/11 8:14 上午
- * @description 从根节点到叶节点的所有路径之和；路径：不一定是从根节点开始、叶子节点结束
+ * @Author: SongShengLin
+ * @Date: 2022/11/08 08:35
+ * @Describe:
  */
-public class Solution {
+public class Solution1 {
 
-    /**
-     * 二叉树中任意路径和等于target的路径和
-     * 路径定义：只能从当前节点向下经过的结点
-     */
+
     public int pathSum(TreeNode root, int targetSum) {
         if (root == null) {
             return 0;
@@ -44,7 +41,7 @@ public class Solution {
     }
 
     public static void main(String[] args) {
-        Solution solution = new Solution();
+        Solution1 solution = new Solution1();
         TreeNode node5 = new TreeNode(5);
         TreeNode node2 = new TreeNode(2);
         TreeNode node4 = new TreeNode(4);
