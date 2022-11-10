@@ -1,6 +1,7 @@
 package com.ssl.note.algorithm.leetcode.剑指Offer.第三版.第8章_树.q52_展平二叉搜索树;
 
 import java.util.LinkedList;
+import java.util.List;
 
 /**
  * @author SongShengLin
@@ -9,32 +10,64 @@ import java.util.LinkedList;
  */
 public class Solution {
 
+
+    /**
+     * 展平二叉搜索树
+     */
     public TreeNode increasingBST(TreeNode root) {
-        LinkedList<TreeNode> stack = new LinkedList<>();
-        TreeNode cur = root;
-        TreeNode prev = null;
-        TreeNode first = null;
-        while (cur != null || !stack.isEmpty()) {
-            // 让cur先遍历到最左结点,栈中只存左孩子节点
-            while (cur != null) {
-                stack.push(cur);
-                cur = cur.left;
-            }
-            // cur每次指向栈顶=每次指向BST中的左孩子
-            cur = stack.pop();
-            // prev指向当前节点展平后的父节点=上一轮的左孩子节点
-            if (prev != null) {
-                prev.right = cur;
-            } else {
-                // first指向原先BST的最左结点=展平后的根节点
-                first = cur;
-            }
-            // 迭代，prev指向下一轮的展平后的父节点
-            prev = cur;
-            // cur左指针置空，然后右移
-            cur.left = null;
-            cur = cur.right;
+        if (root == null) {
+            return null;
         }
-        return first;
+        LinkedList<TreeNode> stack = new LinkedList<>();
+
+        TreeNode newRoot = null;
+        TreeNode prev = null;
+        while (!stack.isEmpty() || root != null) {
+            // 当前的左孩子全部进栈,找到最左孩子
+            while (root != null) {
+                stack.push(root);
+                root = root.left;
+            }
+
+            root = stack.pop();
+            if (prev == null) {
+                // 新的根节点
+                newRoot = root;
+            } else {
+                // 否则，右边指向当前出栈的
+                prev.right = root;
+            }
+
+            prev = root;
+            root.left = null;
+            root = root.right;
+        }
+        return newRoot;
+    }
+
+    public static void main(String[] args) {
+        Solution solution = new Solution();
+        TreeNode node4 = new TreeNode(4);
+        TreeNode node2 = new TreeNode(2);
+        TreeNode node1 = new TreeNode(1);
+        TreeNode node3 = new TreeNode(3);
+        TreeNode node5 = new TreeNode(5);
+        TreeNode node6 = new TreeNode(6);
+
+        node4.left = node2;
+        node4.right = node5;
+        node2.left = node1;
+        node2.right = node3;
+        node5.right = node6;
+
+        TreeNode root = solution.increasingBST(node4);
+        while (root != null) {
+            System.out.println(root.val + " ");
+            if (root.left != null) {
+                System.out.println("error");
+            } else {
+                root = root.right;
+            }
+        }
     }
 }
