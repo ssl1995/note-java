@@ -9,6 +9,11 @@ import java.util.LinkedList;
  * @description
  */
 public class Solution1 {
+
+    /**
+     * 寻找二叉搜索树中，是否存在节点值之和为k
+     * 方法1：时间和空间复杂度O(n)
+     */
     public boolean findTarget(TreeNode root, int k) {
         LinkedList<TreeNode> stack = new LinkedList<>();
         HashSet<Integer> set = new HashSet<>();
