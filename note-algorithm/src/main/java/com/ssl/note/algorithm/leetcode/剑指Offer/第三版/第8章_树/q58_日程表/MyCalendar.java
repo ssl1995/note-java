@@ -33,4 +33,11 @@ public class MyCalendar {
         events.put(start, end);
         return true;
     }
+
+    public static void main(String[] args) {
+        MyCalendar myCalendar = new MyCalendar();
+        System.out.println(myCalendar.book(10, 20));
+        System.out.println(myCalendar.book(20, 30));
+        System.out.println(myCalendar.book(15, 20));
+    }
 }
