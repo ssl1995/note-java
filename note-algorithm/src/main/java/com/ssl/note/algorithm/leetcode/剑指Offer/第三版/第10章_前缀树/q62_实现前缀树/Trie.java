@@ -1,5 +1,10 @@
 package com.ssl.note.algorithm.leetcode.剑指Offer.第三版.第10章_前缀树.q62_实现前缀树;
 
+import com.ssl.note.algorithm.leetcode.剑指Offer.第三版.第10章_前缀树.q63_替换单词.Solution;
+
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * @author SongShengLin
  * @date 2021/10/18 9:20 上午
@@ -7,58 +12,101 @@ package com.ssl.note.algorithm.leetcode.剑指Offer.第三版.第10章_前缀树
  */
 public class Trie {
 
-    // 定义前缀树数据结构
-    static class TrieNode {
-        public TrieNode[] children;
-        // 判断到达该节点的路径对应的字符串是否为字典中一个完整的单词
-        public boolean isWord;
+    private Node root;
 
-        public TrieNode() {
-            // 假设这颗前缀树只包含26个小写字母
-            children = new TrieNode[26];
+    static class Node {
+        private int pass;
+        private int end;
+        private Map<Integer, Node> nexts;
+
+        public Node() {
+            pass = 0;
+            end = 0;
+            nexts = new HashMap<>();
         }
     }
 
-    private TrieNode root;
-
     public Trie() {
-        root = new TrieNode();
+        root = new Node();
     }
 
     public void insert(String word) {
-        TrieNode cur = root;
-        for (char c : word.toCharArray()) {
-            if (cur.children[c - 'a'] == null) {
-                cur.children[c - 'a'] = new TrieNode();
-            }
-            // 遍历指针指向下一个孩子节点
-            cur = cur.children[c - 'a'];
+        if (word == null) {
+            return;
         }
-        // 循环结束，遍历指针指向word单词结尾，最后一个单词字符设置为完整的一个单词true
-        cur.isWord = true;
+        char[] cs = word.toCharArray();
+        Node cur = root;
+        int index = 0;
+        for (char c : cs) {
+            index = c;
+            if (!cur.nexts.containsKey(index)) {
+                cur.nexts.put(index, new Node());
+            }
+            cur = cur.nexts.get(index);
+            cur.pass++;
+        }
+        cur.end++;
     }
 
     public boolean search(String word) {
-        TrieNode cur = root;
-        for (char c : word.toCharArray()) {
-            if (cur.children[c - 'a'] == null) {
-                return false;
-            }
-            cur = cur.children[c - 'a'];
+        if (word == null) {
+            return false;
         }
-        // search是完整查找一个单词
-        return cur.isWord;
+        char[] cs = word.toCharArray();
+        Node cur = root;
+        int index = 0;
+        for (char c : cs) {
+            index = c;
+            if (!cur.nexts.containsKey(index)) {
+                cur.nexts.put(index, new Node());
+            }
+            cur = cur.nexts.get(index);
+        }
+        return cur.end != 0;
     }
 
     public boolean startsWith(String prefix) {
-        TrieNode cur = root;
-        for (char c : prefix.toCharArray()) {
-            if (cur.children[c - 'a'] == null) {
-                return false;
-            }
-            cur = cur.children[c - 'a'];
+        if (prefix == null) {
+            return false;
         }
-        // startsWith是前缀树只要含有该前缀，就返回true
-        return true;
+        char[] cs = prefix.toCharArray();
+        Node cur = root;
+        int index = 0;
+        for (char c : cs) {
+            index = c;
+            if (!cur.nexts.containsKey(index)) {
+                cur.nexts.put(index, new Node());
+            }
+            cur = cur.nexts.get(index);
+        }
+        return cur.pass != 0;
+    }
+
+    public String getPrefix(String prefix) {
+        if (prefix == null) {
+            return "";
+        }
+        Node cur = root;
+        int index = 0;
+        StringBuilder sb = new StringBuilder();
+        char[] cs = prefix.toCharArray();
+        for (char c : cs) {
+            index = c;
+            if (!cur.nexts.containsKey(index)) {
+                return "";
+            }
+            cur = cur.nexts.get(index);
+            sb.append((char) (index));
+            if (cur.end != 0) {
+                return sb.toString();
+            }
+        }
+        return sb.toString();
+    }
+
+    public static void main(String[] args) {
+        Trie trie = new Trie();
+        trie.insert("abcd");
+        System.out.println(trie.getPrefix("abcdsdadasd"));
     }
 }
