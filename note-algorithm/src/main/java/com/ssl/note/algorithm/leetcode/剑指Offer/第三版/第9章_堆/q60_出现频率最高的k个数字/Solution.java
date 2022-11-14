@@ -1,9 +1,6 @@
 package com.ssl.note.algorithm.leetcode.剑指Offer.第三版.第9章_堆.q60_出现频率最高的k个数字;
 
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.PriorityQueue;
+import java.util.*;
 
 /**
  * @author SongShengLin
@@ -11,28 +8,44 @@ import java.util.PriorityQueue;
  * @description
  */
 public class Solution {
+    /**
+     * 出现频率最高的K个数字
+     */
     public int[] topKFrequent(int[] nums, int k) {
-        // map存数字和其出现的频率
-        HashMap<Integer, Integer> map = new HashMap<>();
+        if (nums == null || nums.length == 0 || k < 0) {
+            return new int[]{};
+        }
+        Map<Integer, Integer> map = new HashMap<>();
+        // 小根堆：存entry，按照频率value升序排序
+        Queue<Map.Entry<Integer, Integer>> minHeap =
+                new PriorityQueue<>(Comparator.comparingInt(Map.Entry::getValue));
+
         for (int num : nums) {
             map.put(num, map.getOrDefault(num, 0) + 1);
         }
-        // 最小值堆存前k大的频率的Entry
-        PriorityQueue<Map.Entry<Integer, Integer>> minHeap = new PriorityQueue<>(Comparator.comparingInt(Map.Entry::getValue));
-        // 遍历map中的entry
+
         for (Map.Entry<Integer, Integer> entry : map.entrySet()) {
             if (minHeap.size() < k) {
                 minHeap.offer(entry);
-            } else if (minHeap.peek().getValue() < entry.getValue()) {// 最小值堆存前k大的entry，遇到堆顶<待插入，才poll
+            } else if (entry.getValue() > minHeap.peek().getValue()) {
+                // 每次都要先出一个元素
                 minHeap.poll();
                 minHeap.offer(entry);
             }
         }
-        // 放入结果集
+
         int[] res = new int[k];
-        for (int i = 0; i < k; i++) {
-            res[i] = minHeap.poll().getKey();
+        int i = 0;
+        for (Map.Entry<Integer, Integer> entry : minHeap) {
+            res[i++] = entry.getKey();
         }
         return res;
+    }
+
+    public static void main(String[] args) {
+        int[] nums = {4, 1, -1, 2, -1, 2, 3};
+        int k = 2;
+        Solution solution = new Solution();
+        System.out.println(Arrays.toString(solution.topKFrequent(nums, k)));
     }
 }
