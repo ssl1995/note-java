@@ -34,3 +34,8 @@ git diff HEAD | 历史版本id：比较指定的暂存区和工作区中内容
 # 分支
 git branch -v:查看所有分支
 git branch my-
+
+# 远程库
+使用github、gitLab等远程仓库关联自己的本地库
+git remote:查看远程库有哪些
+git remote add origin http://xxxxx
