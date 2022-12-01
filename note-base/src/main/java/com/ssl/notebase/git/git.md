@@ -23,4 +23,14 @@ git reset --hard c6d390d44034cd48dd8c625e68beef5c0292053b
 git diff 将工作区和暂存区中的所有进行比较
 git diff HEAD | 历史版本id：比较指定的暂存区和工作区中内容
 
-测试是否有冲突
+冲突的格式：
+
+<<<<
+当期分支的代码
+====
+合并过来分支的代码
+>>>>
+
+# 分支
+git branch -v:查看所有分支
+git branch my-
