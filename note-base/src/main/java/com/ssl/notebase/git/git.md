@@ -16,3 +16,8 @@ git reset --hard c6d390d44034cd48dd8c625e68beef5c0292053b
 --soft：工作区、暂存区不动，本地库移动
 
 # 删除
+本地删除就是自己rm rf重新commit就行
+删除commit，就是修改reset指针
+
+# diff
+比较差异
