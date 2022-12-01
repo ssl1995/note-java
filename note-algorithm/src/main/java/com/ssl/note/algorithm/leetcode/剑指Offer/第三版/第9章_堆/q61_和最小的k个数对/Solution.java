@@ -33,6 +33,7 @@ public class Solution {
                 } else {
                     int[] peek = maxHeap.peek();
                     int peekSum = peek[0] + peek[1];
+                    // 待添加的数对之和 < 最大值堆的堆顶
                     if (num1 + num2 < peekSum) {
                         maxHeap.poll();
                         maxHeap.offer(new int[]{num1, num2});
@@ -55,6 +56,7 @@ public class Solution {
         int[] nums1 = {1, 5, 13, 21};
         int[] nums2 = {2, 4, 9, 15};
         int k = 3;
+        // [[5, 2], [1, 2], [1, 4]]
         System.out.println(solution.kSmallestPairs(nums1, nums2, k));
     }
 }

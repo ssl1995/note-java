@@ -46,6 +46,7 @@ public class Solution {
         int[] nums = {4, 1, -1, 2, -1, 2, 3};
         int k = 2;
         Solution solution = new Solution();
+        // 出现频率最高的2个数字：-1，2
         System.out.println(Arrays.toString(solution.topKFrequent(nums, k)));
     }
 }
