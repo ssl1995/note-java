@@ -20,4 +20,5 @@ git reset --hard c6d390d44034cd48dd8c625e68beef5c0292053b
 删除commit，就是修改reset指针
 
 # diff
-比较差异
+git diff 将工作区和暂存区中的所有进行比较
+git diff HEAD | 历史版本id：比较指定的暂存区和工作区中内容
