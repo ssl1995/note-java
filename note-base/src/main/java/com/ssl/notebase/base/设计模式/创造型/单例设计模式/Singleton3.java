@@ -12,6 +12,11 @@ public class Singleton3 {
     private Singleton3() {
     }
 
+    /**
+     * 懒汉式(线程安全)
+     * 优点：需要时候才创建 + 锁
+     * 缺点：加上了syn，但是性能可能会有影响
+     */
     public static Singleton3 getSingleton() {
         // syn+if:容易阻塞
         synchronized (Singleton3.class) {
@@ -22,14 +27,5 @@ public class Singleton3 {
 
         return singleton;
     }
-
-//    第二种写法
-//    public static synchronized Singleton3 getSingleton1() {
-//        if (singleton == null) {
-//            singleton = new Singleton3();
-//        }
-//        return singleton;
-//    }
-
 
 }
