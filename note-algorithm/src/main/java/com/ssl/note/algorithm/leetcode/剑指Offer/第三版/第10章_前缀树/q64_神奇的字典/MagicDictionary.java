@@ -1,5 +1,9 @@
 package com.ssl.note.algorithm.leetcode.剑指Offer.第三版.第10章_前缀树.q64_神奇的字典;
 
+import com.google.common.collect.Lists;
+
+import java.util.List;
+
 /**
  * @author SongShengLin
  * @date 2021/10/21 6:16 下午
@@ -75,6 +79,7 @@ public class MagicDictionary {
         MagicDictionary magicDictionary = new MagicDictionary();
         magicDictionary.buildDict(dict);
         System.out.println(magicDictionary.search("now"));
+
     }
 
 }

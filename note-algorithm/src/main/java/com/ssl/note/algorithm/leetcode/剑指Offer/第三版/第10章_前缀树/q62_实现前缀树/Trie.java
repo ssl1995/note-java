@@ -106,7 +106,7 @@ public class Trie {
 
     public static void main(String[] args) {
         Trie trie = new Trie();
-        trie.insert("abcd");
+        trie.insert("a");
         System.out.println(trie.getPrefix("abcdsdadasd"));
     }
 }

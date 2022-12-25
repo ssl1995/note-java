@@ -8,8 +8,8 @@ spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://rm-2zep5730lmk5s5dy37o.mysql.rds.aliyuncs.com:3306/imooc-wiki-dev?characterEncoding=UTF8&autoReconnect=true&serverTimezone=Asia/Shanghai&allowMultiQueries=true
-    password: Ssl@199502
     username: root
+    password: Ssl@199502
   redis:
     host: r-uf6ljbcdaxobsifyctpd.redis.rds.aliyuncs.com
     password: Redis000
