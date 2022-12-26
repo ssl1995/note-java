@@ -17,6 +17,9 @@ public class ProduceSample {
     public final static String TOPIC_NAME = "songshenglin-groupA";
     public final static String HOST_NAME = "101.201.154.144:9092";
 
+    /**
+     * kafka生产者:是线程安全的，可以使用多线程同时访问同一个provider
+     */
     public static void main(String[] args) throws ExecutionException, InterruptedException {
         // Producer异步发送演示
 //        producerSend();
