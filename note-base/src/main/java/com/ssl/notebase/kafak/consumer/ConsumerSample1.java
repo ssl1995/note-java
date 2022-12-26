@@ -1,12 +1,15 @@
 package com.ssl.notebase.kafak.consumer;
 
-import org.apache.kafka.clients.consumer.*;
+import org.apache.kafka.clients.consumer.ConsumerRecord;
+import org.apache.kafka.clients.consumer.ConsumerRecords;
+import org.apache.kafka.clients.consumer.KafkaConsumer;
+import org.apache.kafka.clients.consumer.OffsetAndMetadata;
 import org.apache.kafka.common.TopicPartition;
 
 import java.time.Duration;
 import java.util.*;
 
-public class ConsumerSample {
+public class ConsumerSample1 {
     public final static String TOPIC_NAME = "songshenglin-groupA";
     public final static String HOST_NAME = "101.201.154.144:9092";
 
@@ -88,17 +91,12 @@ public class ConsumerSample {
         Properties props = new Properties();
         props.setProperty("bootstrap.servers", HOST_NAME);
         // 消费者群组的概念
-        // 消费者的负载均衡是按照分区为级别的，不像生产者一样可以自定义按照key或者value
-        props.setProperty("group.id", GROUPA);
-        // 取消自动提交配置
+//        props.setProperty("group.id", GROUPA);
+        props.setProperty("group.id", GROUPB);
         props.setProperty("enable.auto.commit", "false");
         props.setProperty("auto.commit.interval.ms", "1000");
         props.setProperty("key.deserializer", "org.apache.kafka.common.serialization.StringDeserializer");
         props.setProperty("value.deserializer", "org.apache.kafka.common.serialization.StringDeserializer");
-        // 从分区中最早的开始消费
-//        props.setProperty(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG,"earliest");
-        // 从分区中最近提交的offset开始消费
-        props.setProperty(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "latest");
 
         KafkaConsumer<String, String> consumer = new KafkaConsumer(props);
         // 消费订阅哪一个Topic或者几个Topic
@@ -203,8 +201,6 @@ public class ConsumerSample {
             int newOffSetStart = 700;// 可以从redis中拉出最新的
             consumer.seek(p0, newOffSetStart);
 
-            int count = 0;
-
             ConsumerRecords<String, String> records = consumer.poll(Duration.ofMillis(10000));
             // 每个partition单独处理
             for (TopicPartition partition : records.partitions()) {
@@ -219,11 +215,6 @@ public class ConsumerSample {
                 Map<TopicPartition, OffsetAndMetadata> offset = new HashMap<>();
                 offset.put(partition, new OffsetAndMetadata(lastOffset + 1));
                 // 提交offset
-//                count++;
-                // 可以手动控制每10条做一个提交
-//                if (count % 10 == 0) {
-//                    consumer.commitSync(offset);
-//                }
                 consumer.commitSync(offset);
                 System.out.println("=============partition - " + partition + " end================");
             }

@@ -1,6 +1,7 @@
 package com.ssl.notebase.kafak.producer;
 
 import org.apache.kafka.clients.producer.*;
+import org.apache.kafka.common.serialization.StringSerializer;
 
 import java.util.Properties;
 import java.util.concurrent.ExecutionException;
@@ -13,7 +14,7 @@ import java.util.concurrent.Future;
  */
 public class ProduceSample {
 
-    public final static String TOPIC_NAME = "songshenglin-topic-1";
+    public final static String TOPIC_NAME = "songshenglin-groupA";
     public final static String HOST_NAME = "101.201.154.144:9092";
 
     public static void main(String[] args) throws ExecutionException, InterruptedException {
@@ -40,23 +41,27 @@ public class ProduceSample {
         properties.put(ProducerConfig.LINGER_MS_CONFIG, "1");
         properties.put(ProducerConfig.BUFFER_MEMORY_CONFIG, "33554432");
 
-        properties.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, "org.apache.kafka.common.serialization.StringSerializer");
-        properties.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, "org.apache.kafka.common.serialization.StringSerializer");
-        // 配置负载均衡器
+        // key和value的序列化器
+        properties.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
+        properties.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
+
+        // 配置负载均衡器:自定义负债均衡器
         properties.put(ProducerConfig.PARTITIONER_CLASS_CONFIG, "com.ssl.notebase.kafak.producer.SamplePartition");
 
         // Producer的主对象
         Producer<String, String> producer = new KafkaProducer<>(properties);
 
         // 消息对象 - ProducerRecoder
-        for (int i = 0; i < 20; i++) {
-            ProducerRecord<String, String> record = new ProducerRecord<>(TOPIC_NAME, "key-" + i, "value-" + i);
-            producer.send(record, new Callback() {
-                @Override
-                public void onCompletion(RecordMetadata recordMetadata, Exception e) {
-                    System.out.println("partition : " + recordMetadata.partition() + " , offset : " + recordMetadata.offset());
-                }
-            });
+        for (int i = 0; i < 8; i++) {
+            // 默认向全部partition发送消息
+            ProducerRecord<String, String> record = new ProducerRecord<>(TOPIC_NAME, "teacher-" + i, "teacher value-" + i);
+
+            // 制定partition分区发送消息
+//            ProducerRecord<String, String> record1 = new ProducerRecord<>(TOPIC_NAME, 0,"teacher-" + i, "teacher value-" + i);
+
+            // 发送消息并回调
+            producer.send(record, (recordMetadata, e) ->
+                    System.out.println("回调函数:partition : " + recordMetadata.partition() + " , offset : " + recordMetadata.offset()));
         }
 
         // 所有的通道打开都需要关闭
@@ -85,8 +90,7 @@ public class ProduceSample {
         for (int i = 0; i < 10; i++) {
             ProducerRecord<String, String> record = new ProducerRecord<>(TOPIC_NAME, "key-" + i, "value-" + i);
 
-            producer.send(record, (recordMetadata, e) -> System.out.println(
-                    "partition : " + recordMetadata.partition() + " , offset : " + recordMetadata.offset()));
+            producer.send(record, (recordMetadata, e) -> System.out.println("partition : " + recordMetadata.partition() + " , offset : " + recordMetadata.offset()));
         }
 
         // 所有的通道打开都需要关闭
@@ -113,8 +117,7 @@ public class ProduceSample {
 
         // 消息对象 - ProducerRecoder
         for (int i = 0; i < 10; i++) {
-            ProducerRecord<String, String> record =
-                    new ProducerRecord<>(TOPIC_NAME, "key-" + i, "value-" + i);
+            ProducerRecord<String, String> record = new ProducerRecord<>(TOPIC_NAME, "key-" + i, "value-" + i);
 
             producer.send(record);
         }
