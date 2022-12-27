@@ -1,7 +1,6 @@
 package com.ssl.note.algorithm.leetcode.编号刷题.LC146_LRU缓存;
 
 import java.util.HashMap;
-import java.util.Map;
 
 /**
  * @Author: SongShengLin
@@ -30,7 +29,7 @@ public class LRUCache {
     private int size;
     private Node head;
     private Node tail;
-    private Map<Integer, Node> map;
+    private HashMap<Integer, Node> map;
 
     /**
      * 最近最少使用：
@@ -40,12 +39,16 @@ public class LRUCache {
     public LRUCache(int capacity) {
         map = new HashMap<>();
         size = capacity;
+        // 题目固定key和value都是正整数
         head = new Node(-1, -1);
         tail = new Node(-1, -1);
         head.next = tail;
         tail.pre = head;
     }
 
+    /**
+     * 获取元素
+     */
     public int get(int key) {
         if (!map.containsKey(key)) {
             return -1;
@@ -55,39 +58,60 @@ public class LRUCache {
         return node.value;
     }
 
+    /**
+     * 设置元素
+     */
     public void put(int key, int value) {
+        // 如果map中有这个元素，就更新value
         if (map.containsKey(key)) {
             Node node = map.get(key);
             node.value = value;
             moveToTail(node);
             return;
         }
+        // map中没有这个元素
+        // 如果达到初始化长度，删除头部最近的数据
         if (map.size() == size) {
-            Node tailNode = head.next;
-            deleteNode(tailNode);
-            map.remove(tailNode.key);
+            deleteHead();
         }
-
+        // 链表尾部插入数据
         Node node = new Node(key, value);
         insertToTail(node);
         map.put(key, node);
-
     }
 
+
+    /**
+     * 删除头部元素
+     */
+    private void deleteHead(){
+        Node node = head.next;
+        deleteNodeAndMapNotRemove(node);
+        // 删除元素，也要移除map
+        // 注意api的参数是key不是node
+        map.remove(node.key);
+    }
+
+    /**
+     * get、put使用过的元素都放到末尾
+     */
     private void moveToTail(Node node) {
         if (node == null) {
             return;
         }
-        deleteNode(node);
+        // 删除原有位置的元素
+        deleteNodeAndMapNotRemove(node);
+        // 插入到末尾
         insertToTail(node);
     }
 
-    private void deleteNode(Node node) {
+    private void deleteNodeAndMapNotRemove(Node node) {
         if (node == null) {
             return;
         }
         node.pre.next = node.next;
         node.next.pre = node.pre;
+        // 这个删除没有动map = 逻辑删除而已
     }
 
     private void insertToTail(Node node) {

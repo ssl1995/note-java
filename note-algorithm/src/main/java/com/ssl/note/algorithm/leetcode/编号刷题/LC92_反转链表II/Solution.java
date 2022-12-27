@@ -27,10 +27,16 @@ public class Solution {
         ListNode cur = pre.next;
         // 3.指向需要头插的节点
         ListNode next;
+        // 不需要再次遍历确定right后面的结点，因为可能right是末尾节点，反而加大了时间复杂度
+        // 使用头插法，每次遍历到一个cur，就将它头插在头部，遍历完毕，就翻转成功
         for (int i = 0; i < right - left; i++) {
+            // next：每次需要头插到头部的结点
             next = cur.next;
+            // 第一步：cur.next先记录next.next
             cur.next = next.next;
+            // 第二步：头插的位置是pre.next，而不是cur，cur相当于遍历指针
             next.next = pre.next;
+            // 第三步：next是新的头部，pre.next指向它
             pre.next = next;
         }
         return dummy.next;
