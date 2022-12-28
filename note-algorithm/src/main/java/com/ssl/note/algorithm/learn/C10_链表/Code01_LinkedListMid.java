@@ -26,8 +26,8 @@ public class Code01_LinkedListMid {
             return head;
         }
         // 链表有3个点或以上
-        Node slow = head.next;
         Node fast = head.next.next;
+        Node slow = head.next;
         while (fast.next != null && fast.next.next != null) {
             slow = slow.next;
             fast = fast.next.next;
@@ -43,8 +43,8 @@ public class Code01_LinkedListMid {
         if (head == null || head.next == null) {
             return head;
         }
-        Node slow = head.next;
         Node fast = head.next;
+        Node slow = head.next;
         while (fast.next != null && fast.next.next != null) {
             slow = slow.next;
             fast = fast.next.next;
@@ -60,8 +60,8 @@ public class Code01_LinkedListMid {
         if (head == null || head.next == null || head.next.next == null) {
             return null;
         }
-        Node slow = head;
         Node fast = head.next.next;
+        Node slow = head;
         while (fast.next != null && fast.next.next != null) {
             slow = slow.next;
             fast = fast.next.next;
@@ -80,8 +80,8 @@ public class Code01_LinkedListMid {
         if (head.next.next == null) {
             return head;
         }
-        Node slow = head;
         Node fast = head.next;
+        Node slow = head;
         while (fast.next != null && fast.next.next != null) {
             slow = slow.next;
             fast = fast.next.next;
