@@ -1,4 +1,4 @@
-package com.ssl.note.algorithm.leetcode.编号刷题.LC41_接雨水;
+package com.ssl.note.algorithm.leetcode.编号刷题.LC42_接雨水;
 
 /**
  * @author SongShengLin
