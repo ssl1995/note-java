@@ -21,6 +21,7 @@ public class Code02_NumberOfIslands {
         int islands = 0;
         for (int i = 0; i < board.length; i++) {
             for (int j = 0; j < board[0].length; j++) {
+                // 只有原数组值为1才会执行感染函数
                 if (board[i][j] == '1') {
                     infect(board, i, j);
                     islands++;
