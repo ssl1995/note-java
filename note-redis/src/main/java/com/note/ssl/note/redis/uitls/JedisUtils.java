@@ -9,9 +9,10 @@ import java.time.Duration;
 /**
  * @Author: SongShengLin
  * @Date: 2022/10/08 17:13
- * @Describe:
+ * @Describe: Jedis就是Redis官方推荐的Java连接开发工具。相当于的mysql与JDBC的关系
+ * 这里用于获取lua脚本
  */
-public class JedisPoolConnectRedis {
+public class JedisUtils {
     public static JedisPool jedisPool;
 
     public static final String HOST = "101.201.154.144";

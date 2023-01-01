@@ -1,6 +1,6 @@
 package com.note.ssl.note.redis.jedis;
 
-import com.note.ssl.note.redis.uitls.JedisPoolConnectRedis;
+import com.note.ssl.note.redis.uitls.JedisUtils;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -22,7 +22,7 @@ public class JedisTest {
     @Before
     public void init() {
 //        jedis = new Jedis(HOST, PORT);
-        jedis = JedisPoolConnectRedis.getJedis();
+        jedis = JedisUtils.getJedis();
 
         jedis.auth(AUTH_PASSWORD);
 
