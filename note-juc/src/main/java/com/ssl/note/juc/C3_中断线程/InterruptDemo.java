@@ -1,5 +1,7 @@
 package com.ssl.note.juc.C3_中断线程;
 
+import org.junit.jupiter.api.Test;
+
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -8,30 +10,15 @@ import java.util.concurrent.TimeUnit;
  * @Describe:
  */
 public class InterruptDemo {
-//    public static void main(String[] args) {
-//        Thread t1 = new Thread(() -> {
-//            while (true) {
-//                if (Thread.currentThread().isInterrupted()) {
-//                    System.out.println("-----t1 线程被中断了，break，程序结束");
-//                    break;
-//                }
-//                System.out.println("-----hello");
-//            }
-//        }, "t1");
-//        t1.start();
-//
-//        System.out.println("**************" + t1.isInterrupted());
-//        //暂停5毫秒
-//        try {
-//            TimeUnit.MILLISECONDS.sleep(5);
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
-//        t1.interrupt();
-//        System.out.println("**************" + t1.isInterrupted());
-//    }
 
-    public static void main(String[] args) throws InterruptedException {
+    /**
+     * t1.interrupt();
+     * 1.线程活跃，中断标志位设置为true
+     * 2.线程阻塞，抛出异常
+     *  2.1 如果是sleep阻塞的，会将中断标志重置为false；需要再次.interrupt()，才能=true
+     */
+    @Test
+    public void test2() {
         Thread t1 = new Thread(() -> {
 
             // 如果线程状态此时已经为true，别的线程调用isInterrupted会抛出异常
@@ -39,7 +26,8 @@ public class InterruptDemo {
             try {
                 TimeUnit.SECONDS.sleep(3);
             } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
+                // sleep：会重置线程装填为false,catch里可以再次设置为ture
+                // Thread.currentThread().interrupt();
                 e.printStackTrace();
             }
 
@@ -69,5 +57,20 @@ public class InterruptDemo {
             e.printStackTrace();
         }
         System.out.println("after t1.interrupt()--第3次---: " + t1.isInterrupted());
+    }
+
+    /**
+     * 静态方法Thread.interrupted():1.返回当前现在状态 2.再重置为false
+     */
+    @Test
+    public void test3() {
+        System.out.println(Thread.currentThread().getName() + "---" + Thread.interrupted());
+        System.out.println(Thread.currentThread().getName() + "---" + Thread.interrupted());
+        System.out.println("111111");
+        Thread.currentThread().interrupt();
+        System.out.println("222222");
+        System.out.println(Thread.currentThread().getName() + "---" + Thread.interrupted());
+        // 静态方法Thread.interrupted():1.返回当前现在状态 2.再重置为false
+        System.out.println(Thread.currentThread().getName() + "---" + Thread.interrupted());
     }
 }
