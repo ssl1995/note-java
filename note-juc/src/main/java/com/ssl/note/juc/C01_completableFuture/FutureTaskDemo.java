@@ -1,4 +1,4 @@
-package com.ssl.note.juc.C1_completableFuture;
+package com.ssl.note.juc.C01_completableFuture;
 
 import org.junit.Test;
 
@@ -70,6 +70,4 @@ public class FutureTaskDemo {
             }
         }
     }
-
-
 }

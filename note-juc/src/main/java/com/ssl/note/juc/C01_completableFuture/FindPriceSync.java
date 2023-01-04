@@ -1,4 +1,4 @@
-package com.ssl.note.juc.C1_completableFuture;
+package com.ssl.note.juc.C01_completableFuture;
 
 import lombok.Getter;
 
@@ -9,11 +9,6 @@ import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
-/**
- * @Author: SongShengLin
- * @Date: 2023/01/02 11:26
- * @Describe:
- */
 public class FindPriceSync {
 
     /**
