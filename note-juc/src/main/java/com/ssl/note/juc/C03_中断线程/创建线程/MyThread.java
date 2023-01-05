@@ -1,4 +1,4 @@
-package com.ssl.notebase.base.多线程.创建线程;
+package com.ssl.note.juc.C03_中断线程.创建线程;
 
 /**
  * @author SongShengLin

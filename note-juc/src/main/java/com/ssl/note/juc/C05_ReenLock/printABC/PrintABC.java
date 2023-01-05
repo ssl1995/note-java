@@ -1,4 +1,4 @@
-package com.ssl.notebase.base.多线程.printABC;
+package com.ssl.note.juc.C05_ReenLock.printABC;
 
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.ReentrantLock;

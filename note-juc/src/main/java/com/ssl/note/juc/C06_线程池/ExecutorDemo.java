@@ -1,4 +1,4 @@
-package com.ssl.notebase.base.多线程.线程池;
+package com.ssl.note.juc.C06_线程池;
 
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
