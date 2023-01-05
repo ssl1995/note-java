@@ -1,4 +1,4 @@
-package com.ssl.note.juc.C3_中断线程;
+package com.ssl.note.juc.C03_中断线程;
 
 import org.junit.jupiter.api.Test;
 
