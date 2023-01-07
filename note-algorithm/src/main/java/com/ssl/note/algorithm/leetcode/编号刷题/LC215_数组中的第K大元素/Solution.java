@@ -19,29 +19,33 @@ public class Solution {
         int t = nums.length - k;
         int left = 0;
         int right = nums.length - 1;
-        int index = partition(nums, left, right);
 
-        while (index != t) {
-            if (index < t) {
-                left = index + 1;
+        // 防止顺序/倒叙数组造成的极端情况，每次都随机交换pivot和第一位的元素
+        int pivot = partition(nums, left, right);
+        // 快速排序 => 修改为类似二分的思想去快速选择
+        while (pivot != t) {
+            if (pivot < t) {
+                left = pivot + 1;
             } else {
-                right = index - 1;
+                right = pivot - 1;
             }
 
-            index = partition(nums, left, right);
+            pivot = partition(nums, left, right);
         }
 
-        return nums[index];
+        return nums[pivot];
     }
 
     private int partition(int[] nums, int left, int right) {
+
         int random = new Random().nextInt(right - left + 1) + left;
+        // 以最右边元素为基准，将<right放左边，>=放右边
         swap(nums, random, right);
 
         int p1 = left - 1;
         int p2 = left;
 
-        while (p2 < nums.length) {
+        while (p2 <= right) {
             if (nums[p2] < nums[right]) {
                 p1++;
                 swap(nums, p1, p2);
@@ -51,6 +55,7 @@ public class Solution {
 
         p1++;
         swap(nums, p1, right);
+        // 返回>=的第一个元素的坐标=最右元素放回位置的位置
         return p1;
     }
 
@@ -61,5 +66,16 @@ public class Solution {
         int temp = nums[i];
         nums[i] = nums[j];
         nums[j] = temp;
+    }
+
+    public static void main(String[] args) {
+        // 随机生成[1,10]的坐标
+//        for (int i = 0; i < 10; i++) {
+//            System.out.println(new Random().nextInt(10 - 1 + 1) + 1);
+//        }
+        int[] nums = {3, 2, 1, 5, 6, 4};
+        int k = 2;
+        Solution solution = new Solution();
+        System.out.println(solution.findKthLargest(nums, k));
     }
 }
