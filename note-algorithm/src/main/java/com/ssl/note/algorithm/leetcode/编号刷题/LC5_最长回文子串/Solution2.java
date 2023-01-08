@@ -18,9 +18,9 @@ public class Solution2 {
         int begin = 0;
         char[] cs = s.toCharArray();
         for (int i = 0; i < len - 1; i++) {
-            // 奇数中心的扩散长度
+            // 假设回文串长度是奇数
             int len1 = getPalindromeCenterLen(cs, len, i, i);
-            // 偶数中心的扩散长度
+            // 假设回文串长度是偶数
             int len2 = getPalindromeCenterLen(cs, len, i, i + 1);
             len1 = Math.max(len1, len2);
             if (len1 > maxLen) {
@@ -36,7 +36,7 @@ public class Solution2 {
     }
 
     /**
-     * 返回cs中[i,j]位置往外扩的最大长度
+     * 返回cs中[i,j]作为回文中心，往外扩的回文子串的最大长度
      */
     private int getPalindromeCenterLen(char[] cs, int len, int left, int right) {
         int i = left;
@@ -58,7 +58,7 @@ public class Solution2 {
 
     public static void main(String[] args) {
         Solution2 solution2 = new Solution2();
-        String s = "aba";
-        System.out.println(solution2.getPalindromeCenterLen(s.toCharArray(), s.length(), 0, s.length() - 1));
+        String s = "abbaabde";
+        System.out.println(solution2.getPalindromeCenterLen(s.toCharArray(), s.length(), 3, 4));
     }
 }

@@ -18,7 +18,7 @@ public class Solution {
         if (strs == null || strs.length == 0) {
             return "";
         }
-        // 1.取第一个字符
+        // 1.取第一个字符串
         String res = strs[0];
         for (int i = 1; i < strs.length; i++) {
             int j = 0;
