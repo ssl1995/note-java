@@ -39,9 +39,11 @@ public class Solution {
             }
             // 3.是否越界，超过最大整型
             int temp = cs[i] - '0';
-            if (num > Integer.MAX_VALUE / 10 || (num == Integer.MAX_VALUE / 10 && temp > Integer.MAX_VALUE % 10)) {
+            // 回过头来，判断越界
+            if (num > Integer.MAX_VALUE / 10 || temp > Integer.MAX_VALUE - num * 10) {
                 return sign == 1 ? Integer.MAX_VALUE : Integer.MIN_VALUE;
             }
+            // 写到这一步，就要思考是否会越界
             num = num * 10 + temp;
         }
 

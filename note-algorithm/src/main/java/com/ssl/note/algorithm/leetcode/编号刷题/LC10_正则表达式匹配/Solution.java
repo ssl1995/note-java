@@ -27,29 +27,30 @@ public class Solution {
             for (int j = 1; j < n + 1; j++) {
                 // 当p[j-1]=*时,有三种情况
                 if (p.charAt(j - 1) == '*') {
-                    // (p[j-2]*)出现0次=p[]
                     if (dp[i][j - 2]) {
+                        // 1.j的前一个数出现0次
                         dp[i][j] = true;
-                        // p[j-2]多出现一次能否匹配
                     } else if (dp[i - 1][j] && s.charAt(i - 1) == p.charAt(j - 2)) {
+                        // 2.j的位置前一个数出现1次
                         dp[i][j] = true;
-                        // 万能匹配：.*表示任意一个字符出现任意次
                     } else if (dp[i - 1][j] && p.charAt(j - 2) == '.') {
+                        // 3.万能匹配：.*表示任意一个字符出现任意次
                         dp[i][j] = true;
                     }
-                } else {// 当p[j-1]!=*时,有两种情况
-                    // 前面元素之前都匹配 且 当前元素也相同
+                } else {
+                    // 当p[j-1]!=*时,有两种情况
                     if (dp[i - 1][j - 1] && s.charAt(i - 1) == p.charAt(j - 1)) {
+                        // 1.前面元素之前都匹配 且 当前元素也相同
                         dp[i][j] = true;
-                        //  前面元素之前都匹配 且 p的当期元素是.
                     } else if (dp[i - 1][j - 1] && p.charAt(j - 1) == '.') {
+                        // 2.前面元素之前都匹配 且 p的当期元素是.
                         dp[i][j] = true;
                     }
                 }
             }
         }
         // 打印dp
-        // printDp(dp);
+        printDp(dp);
         return dp[m][n];
     }
 
@@ -61,6 +62,19 @@ public class Solution {
             }
             System.out.println();
         }
+    }
+
+    public static void main(String[] args) {
+        String s = "aaa";
+        String p = "ab*.*";
+        Solution solution = new Solution();
+        /*
+         true	false	false	false	false	false
+         false	true	false	true	false	true
+         false	false	false	false	true	true
+         false	false	false	false	false	true
+         */
+        System.out.println(solution.isMatch(s, p));
     }
 }
 
