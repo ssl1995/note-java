@@ -36,7 +36,7 @@ public class Solution {
         // 动态转移
         for (int i = 1; i <= m; i++) {
             for (int j = 1; j <= n; j++) {
-                // 当前位置元素相同，不需要计算，和上一个dp值决定
+                // 当前位置元素相同，不需要计算，由上一个dp值决定
                 if (word1.charAt(i - 1) == word2.charAt(j - 1)) {
                     dp[i][j] = dp[i - 1][j - 1];
                 } else {
