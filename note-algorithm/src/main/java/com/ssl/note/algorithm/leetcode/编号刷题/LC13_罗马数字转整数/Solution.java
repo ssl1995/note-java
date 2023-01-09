@@ -8,6 +8,9 @@ package com.ssl.note.algorithm.leetcode.编号刷题.LC13_罗马数字转整数;
 public class Solution {
     /**
      * 罗马数字转整数
+     * 输入: s = "LVIII"
+     * 输出: 58
+     * 解释: L = 50, V= 5, III = 3.
      */
     public int romanToInt(String s) {
         if (s == null || s.trim().length() == 0) {
