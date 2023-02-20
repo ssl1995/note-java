@@ -119,6 +119,8 @@ public class ConsumerSample {
                 Map<TopicPartition, OffsetAndMetadata> offset = new HashMap<>();
                 offset.put(partition, new OffsetAndMetadata(lastOffset + 1));
                 System.out.println("提交的offset:" + offset);
+
+                // 同步提交
                 consumer.commitSync(offset);
                 System.out.println("=============partition - " + partition + " end================");
             }

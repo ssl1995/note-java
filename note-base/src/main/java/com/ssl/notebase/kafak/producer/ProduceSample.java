@@ -38,8 +38,11 @@ public class ProduceSample {
     public static void producerSendWithCallbackAndPartition() {
         Properties properties = new Properties();
         properties.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, HOST_NAME);
+        // 保证消息不丢时的两个重要参数
         properties.put(ProducerConfig.ACKS_CONFIG, "all");
         properties.put(ProducerConfig.RETRIES_CONFIG, "0");
+
+
         properties.put(ProducerConfig.BATCH_SIZE_CONFIG, "16384");
         properties.put(ProducerConfig.LINGER_MS_CONFIG, "1");
         properties.put(ProducerConfig.BUFFER_MEMORY_CONFIG, "33554432");
