@@ -4,11 +4,27 @@ spring:
   application:
     name: multi-datasource
   datasource:
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#    url: jdbc:mysql://rm-2zep5730lmk5s5dy37o.mysql.rds.aliyuncs.com:3306/seata-demo?characterEncoding=UTF8&autoReconnect=true&serverTimezone=Asia/Shanghai&allowMultiQueries=true
+#    username: root
+#    password: Ssl@199502
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://rm-2zep5730lmk5s5dy37o.mysql.rds.aliyuncs.com:3306/seata-demo?characterEncoding=UTF8&autoReconnect=true&serverTimezone=Asia/Shanghai&allowMultiQueries=true
+    url: jdbc:mysql://localhost:3306/seata-demo?characterEncoding=UTF8&autoReconnect=true&serverTimezone=Asia/Shanghai&allowMultiQueries=true
     username: root
-    password: Ssl@199502
-
+    password: root1234
+#  dynamic:
+#    baseScanPath: com.xiaojukeji.ep.ip.official.dao
+#    defaultSource: b
+#    scanType: 0
+#    datasource:
+#      b:
+#        driver-class-name: com.mysql.cj.jdbc.Driver
+#        #    url: jdbc:mysql://10.89.195.24:8036/iportal_official_platform?useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=GMT%2b8&allowMultiQueries=true
+#        #    username: root
+#        #    password: iPortal@123456
+#        url: jdbc:mysql://10.179.20.132:4859/iportal_official_platform?useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=GMT%2b8&allowMultiQueries=true&useAffectedRows=true
+#        username: didi_g7ZR
+#        password: DMYlGy5p8
 
 
 # mybatis-plus打印sql日志

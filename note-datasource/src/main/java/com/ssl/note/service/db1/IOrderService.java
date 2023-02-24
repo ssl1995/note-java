@@ -1,4 +1,4 @@
-package com.ssl.note.service;
+package com.ssl.note.service.db1;
 
 
 import com.baomidou.mybatisplus.extension.service.IService;
@@ -13,5 +13,4 @@ import com.ssl.note.entity.Order;
  * @since 2023-01-22
  */
 public interface IOrderService extends IService<Order> {
-    void createOrder(Integer productId);
 }
