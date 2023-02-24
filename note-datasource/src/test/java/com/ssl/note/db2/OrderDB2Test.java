@@ -1,8 +1,6 @@
 package com.ssl.note.db2;
 
-import com.ssl.note.entity.Order;
 import com.ssl.note.entity.Order2;
-import com.ssl.note.service.db1.IOrderService;
 import com.ssl.note.service.db2.IOrderService2;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
