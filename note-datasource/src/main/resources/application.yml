@@ -3,15 +3,6 @@ server:
 spring:
   application:
     name: multi-datasource
-#  datasource:
-#    driver-class-name: com.mysql.cj.jdbc.Driver
-#    url: jdbc:mysql://rm-2zep5730lmk5s5dy37o.mysql.rds.aliyuncs.com:3306/seata-demo?characterEncoding=UTF8&autoReconnect=true&serverTimezone=Asia/Shanghai&allowMultiQueries=true
-#    username: root
-#    password: Ssl@199502
-#    driver-class-name: com.mysql.cj.jdbc.Driver
-#    url: jdbc:mysql://localhost:3306/seata-demo?characterEncoding=UTF8&autoReconnect=true&serverTimezone=Asia/Shanghai&allowMultiQueries=true
-#    username: root
-#    password: root1234
   dynamic:
     baseScanPath: com.ssl.note.mapper
     defaultSource: db1
