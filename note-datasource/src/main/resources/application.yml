@@ -19,12 +19,6 @@ spring:
     datasource:
       db1:
         driver-class-name: com.mysql.cj.jdbc.Driver
-        url: jdbc:mysql://rm-2zep5730lmk5s5dy37o.mysql.rds.aliyuncs.com:3306/seata-demo?characterEncoding=UTF8&autoReconnect=true&serverTimezone=Asia/Shanghai&allowMultiQueries=true
-        username: root
-        password: Ssl@199502
-        type: com.alibaba.druid.pool.DruidDataSource
-      db2:
-        driver-class-name: com.mysql.cj.jdbc.Driver
         url: jdbc:mysql://localhost:3306/seata-demo?characterEncoding=UTF8&autoReconnect=true&serverTimezone=Asia/Shanghai&allowMultiQueries=true
         username: root
         password: root1234
