@@ -29,7 +29,10 @@ public class Solution {
 
     private void merge(int[] nums, int l, int mid, int r, int[] temp) {
         System.arraycopy(nums, l, temp, l, r - l + 1);
-        int p = l, q = mid + 1;
+
+        // p、q遍历辅助数组，将归并后的数据
+        int p = l,
+                q = mid + 1;
         for (int i = l; i <= r; i++) {
             if (p > mid) {
                 nums[i] = temp[q++];
