@@ -31,6 +31,7 @@ public class Solution {
                 stack.push(i);
             } else if (cs[i] == ')') {
                 // 遇到)，出栈
+                // 出栈的，其实是不参与长度计算的
                 stack.pop();
 
                 // 栈空，说明初始化-1的坐标已取出=)没有成功匹配到(
