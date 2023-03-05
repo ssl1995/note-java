@@ -39,11 +39,12 @@ public class Solution {
     }
 
     /**
-     * 回溯，获得数字电话号码组合
+     * 递归和回溯的基本题
+     * 获得数字电话号码组合
      *
      * @param map    数字对应字母的map
-     * @param digits 传过来的参数：数字
-     * @param index  遍历数字的坐标
+     * @param digits 传过来的参数：数字 "23"
+     * @param index  遍历数字的坐标：遍历"23"的坐标
      * @param sb     临时字符串，保存当前组成的字母组合
      * @param res    返回电话号码形成的所有组合
      */
