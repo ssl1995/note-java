@@ -14,9 +14,9 @@ public class MyStack1 {
     public void push(int x) {
         // 保证后进的元素，维持在队列头部，便于出去
         int size = queue.size();
-        queue.add(x);
+        queue.offer(x);
         for (int i = 0; i < size; i++) {
-            queue.add(queue.poll());
+            queue.offer(queue.poll());
         }
 
     }
