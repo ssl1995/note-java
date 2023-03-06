@@ -19,7 +19,9 @@ public class Solution {
     }
 
     private void dfs(TreeNode root, int depth, int pos) {
-        if (root == null) return;
+        if (root == null) {
+            return;
+        }
         // putIfAbsent():如果key是新key,就记录新key和新value
         // 如果是老key,替换老key,但value还是沿用之前的老value
         map.putIfAbsent(depth, pos);

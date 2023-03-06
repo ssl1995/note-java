@@ -21,15 +21,20 @@ public class Solution {
         if (root == null) {
             return true;
         }
-        // 左子树不是BST
-        if (!isValidBST(root.left)) {
+        // 中序遍历
+        // 左孩子是否是BST
+        boolean leftIsBST = isValidBST(root.left);
+        if (!leftIsBST) {
             return false;
         }
-        // BST的中序遍历，当前节点的值必须>pre，否则为false
+
+        // BST的中序遍历：小到大
         if (root.val <= pre) {
             return false;
         }
-        // 右子树是否是BST
+        pre = root.val;
+
+        // 右孩子是否是BST
         return isValidBST(root.right);
     }
 
