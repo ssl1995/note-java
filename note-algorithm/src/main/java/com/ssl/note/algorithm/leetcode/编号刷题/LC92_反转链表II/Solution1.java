@@ -3,42 +3,35 @@ package com.ssl.note.algorithm.leetcode.编号刷题.LC92_反转链表II;
 import com.ssl.note.algorithm.leetcode.utils.ListNode;
 
 /**
- * @Author: SongShengLin
- * @Date: 2022/09/15 09:42
- * @Describe:
+ * @author SongShengLin
+ * @date 2023/3/6 14:55
+ * @description
  */
-public class Solution {
-
-    /**
-     * 反转链表II，在指定区域反转
-     */
+public class Solution1 {
     public ListNode reverseBetween(ListNode head, int left, int right) {
         if (head == null) {
-            return null;
+            return head;
         }
+        if (left < 0 || right < 0) {
+            return head;
+        }
+
         ListNode dummy = new ListNode(-1);
         dummy.next = head;
-        // 1.pre指向待反转区域的前一个位置，从dummy开始而不是head，否则存在找不到第一个元素的情况
+
         ListNode pre = dummy;
         for (int i = 0; i < left - 1; i++) {
             pre = pre.next;
         }
-        // 2.cur指向带待反转区域的left，cur.next不会发生改变
+
         ListNode cur = pre.next;
-        // 3.指向需要头插的节点
-        ListNode next;
-        // 不需要再次遍历确定right后面的结点，因为可能right是末尾节点，反而加大了时间复杂度
-        // 使用头插法，每次都将cur.next头插到带翻转区域的头部
         for (int i = 0; i < right - left; i++) {
-            // next：每次需要头插到头部的结点
-            next = cur.next;
-            // 第一步：cur.next先记录next.next
+            ListNode next = cur.next;
             cur.next = next.next;
-            // 第二步：头插的位置是pre.next，而不是cur，cur相当于遍历指针
             next.next = pre.next;
-            // 第三步：next是新的头部，pre.next指向它
             pre.next = next;
         }
+
         return dummy.next;
     }
 
@@ -53,8 +46,11 @@ public class Solution {
         n3.next = n4;
         n4.next = n5;
 
-        Solution solution = new Solution();
-        ListNode listNode = solution.reverseBetween(n1, 2, 4);
+        System.out.println("---");
+        Solution1 solution1 = new Solution1();
+        // 1 2 3 4 5
+        // 1 4 3 2 5
+        ListNode listNode = solution1.reverseBetween(n1, 2, 4);
 
         while (listNode != null) {
             System.out.print(listNode.val + ",");
