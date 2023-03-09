@@ -18,7 +18,7 @@ public class Solution {
         }
         ListNode dummy = new ListNode(-1);
         dummy.next = head;
-        // 1.pre指向待反转区域的前一个位置，从dummy开始而不是head，否则存在找不到第一个元素的情况
+        // 1.pre指向待反转区域的第一个节点的前一个节点，不会发生改变
         ListNode pre = dummy;
         for (int i = 0; i < left - 1; i++) {
             pre = pre.next;

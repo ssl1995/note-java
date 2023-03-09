@@ -72,7 +72,7 @@ public class LRUCache {
         // map中没有这个元素
         // 如果达到初始化长度，删除头部最近的数据
         if (map.size() == size) {
-            deleteHead();
+            moveHead();
         }
         // 链表尾部插入数据
         Node node = new Node(key, value);
@@ -84,12 +84,21 @@ public class LRUCache {
     /**
      * 删除头部元素
      */
-    private void deleteHead(){
+    private void moveHead(){
         Node node = head.next;
-        deleteNodeAndMapNotRemove(node);
+        deleteListNode(node);
         // 删除元素，也要移除map
         // 注意api的参数是key不是node
         map.remove(node.key);
+    }
+
+    private void deleteListNode(Node node) {
+        if (node == null) {
+            return;
+        }
+        node.pre.next = node.next;
+        node.next.pre = node.pre;
+        // 这个删除没有动map = 逻辑删除而已
     }
 
     /**
@@ -100,19 +109,12 @@ public class LRUCache {
             return;
         }
         // 删除原有位置的元素
-        deleteNodeAndMapNotRemove(node);
+        deleteListNode(node);
         // 插入到末尾
         insertToTail(node);
     }
 
-    private void deleteNodeAndMapNotRemove(Node node) {
-        if (node == null) {
-            return;
-        }
-        node.pre.next = node.next;
-        node.next.pre = node.pre;
-        // 这个删除没有动map = 逻辑删除而已
-    }
+
 
     private void insertToTail(Node node) {
         if (node == null) {
