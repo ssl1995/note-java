@@ -10,7 +10,6 @@ import java.util.Arrays;
 public class HeapSort {
 
     /**
-     * test1
      * @param nums
      */
     public void heapSort(int[] nums) {
