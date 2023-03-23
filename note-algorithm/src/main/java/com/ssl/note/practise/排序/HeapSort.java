@@ -16,6 +16,8 @@ public class HeapSort {
         if (nums == null || nums.length == 0) {
             return;
         }
+        // test笔记
+        // test笔记2
         for (int i = (nums.length - 2) / 2; i >= 0; i--) {
             heapify(nums, i, nums.length);
         }
