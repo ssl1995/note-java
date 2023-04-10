@@ -5,26 +5,35 @@ import java.util.HashSet;
 
 public class Code03_KM {
 
+    // map:存每一个二进制位出现的元素次数
     public static HashMap<Integer, Integer> map = new HashMap<>();
 
-    // 请保证arr中，只有一种数出现了K次，其他数都出现了M次
-    // 只有1个数出现K次，其余数出现M次，找出出现k次的数
+    /**
+     * 请保证arr中，只有一种数出现了K次，其他数都出现了M次
+     * 一个数组中有一种数出现K次，其他数都出现了M次，
+     * M > 1,  K < M
+     * 找到，出现了K次的数，
+     */
     public static int onlyKTimes(int[] arr, int k, int m) {
+        // 1.初始化map，保存每个二进制出现的次数
         if (map.size() == 0) {
             mapCreater(map);
         }
+        // 2.统计每个二进制位出现的总次数
         int[] t = new int[32];
-        // t[0] 0位置的1出现了几个
-        // t[i] i位置的1出现了几个
         for (int num : arr) {
             while (num != 0) {
+                // 一个数num，最右侧的1 = num & ~num+1 = num & -num
                 int rightOne = num & (-num);
                 t[map.get(rightOne)]++;
+                // num每次都抹掉最右侧的1
                 num ^= rightOne;
             }
         }
+        // 3.查找出现k次的数
         int ans = 0;
         for (int i = 0; i < 32; i++) {
+            // 只有1个数出现了k次，其余数必须出现m次
             if (t[i] % m != 0) {
                 if (t[i] % m == k) {
                     ans |= (1 << i);
@@ -33,6 +42,7 @@ public class Code03_KM {
                 }
             }
         }
+        // 4.如果这个数是0，判断这个数是否真的出现了k次
         if (ans == 0) {
             int count = 0;
             for (int num : arr) {
@@ -50,6 +60,10 @@ public class Code03_KM {
     public static void mapCreater(HashMap<Integer, Integer> map) {
         int value = 1;
         for (int i = 0; i < 32; i++) {
+            // key=1，value=0
+            // key=2，value=1
+            // key=4，value=2
+            // key=8，value=3
             map.put(value, i);
             value <<= 1;
         }

@@ -17,18 +17,22 @@ public class Code02_EvenTimesOddTimes {
      * arr中，有两种数(两个数不相同)，出现奇数次；其余数出现偶数次
      */
     public static void printOddTimesNum2(int[] arr) {
-        // 1.干掉所有偶数，得到a^b
+        // 1.干掉所有偶数，得到eor=a^b
         int eor = 0;
         for (int i = 0; i < arr.length; i++) {
             eor ^= arr[i];
         }
-        // a 和 b是两种数
-        // eor != 0
+        // 校验：因为a和b不相同，所以a^b !=0,如果等于0就返回
+        if (eor == 0) {
+            System.out.println(0 + " " + 0);
+        }
+        // 2.取最右侧的1 = 一个数 & 它的相反数
         // eor最右侧的1，提取出来
         // eor :     00110010110111000
-        // rightOne :00000000000001000
-        // 2.取最右侧的1 = 一个数 & 它的相反数
-        // 一个数的相反数 = 自己取反 + 1
+        // ~eor:     11001101001000111
+        // ~eor+1:   11001101001001000
+        // 最右侧的1:  00000000000001000
+        // 一个数num，最右侧的1 = num & ~num+1 = num & -num
         int rightOne = eor & (~eor + 1);
 
         // 3.将这个1区分arr所有数
@@ -40,7 +44,7 @@ public class Code02_EvenTimesOddTimes {
                 a ^= arr[i];
             }
         }
-        // b = eor ^ a = (a^b) ^a
+        // 4.已知eor=a^b 和 a，求b=eor^a
         System.out.println(a + " " + (eor ^ a));
     }
 

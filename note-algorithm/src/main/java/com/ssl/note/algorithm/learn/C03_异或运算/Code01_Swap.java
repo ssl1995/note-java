@@ -2,6 +2,10 @@ package com.ssl.note.algorithm.learn.C03_异或运算;
 
 public class Code01_Swap {
 
+    /**
+     * 异或：相同为0，不同为1 -> 记成无进位相加 = 不会忘
+     * 同或：相同为1，不同为0
+     */
     public static void main(String[] args) {
 
         int[] arr = {1, 2, 3};
