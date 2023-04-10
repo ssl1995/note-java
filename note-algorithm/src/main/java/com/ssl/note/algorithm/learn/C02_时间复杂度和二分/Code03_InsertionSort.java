@@ -4,11 +4,14 @@ import java.util.Arrays;
 
 public class Code03_InsertionSort {
 
+    /**
+     * 插入排序
+     */
     public static void insertionSort(int[] arr) {
         if (arr == null || arr.length < 2) {
             return;
         }
-        // 不只1个数
+        // 不只1个数：从第二个数开始判断插入
         for (int i = 1; i < arr.length; i++) {
             // 0 ~ i 做到有序，前面的树比自己大就交换
             // 最好：O(n)，原数组有序
@@ -23,7 +26,7 @@ public class Code03_InsertionSort {
     public static void swap(int[] arr, int i, int j) {
         arr[i] = arr[i] ^ arr[j];
         arr[j] = arr[i] ^ arr[j];
-          arr[i] = arr[i] ^ arr[j];
+        arr[i] = arr[i] ^ arr[j];
     }
 
     // for test

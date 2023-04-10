@@ -30,6 +30,7 @@ public class Code07_BSAwesome {
             } else {
                 // arr[mid-1] >= arr[mid]
                 // arr[mid] <= arr[mid+1]
+                // 两个等于都满足，就找到了
                 return mid;
             }
         }

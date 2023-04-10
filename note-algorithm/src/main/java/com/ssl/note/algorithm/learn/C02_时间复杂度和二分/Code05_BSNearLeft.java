@@ -12,6 +12,7 @@ public class Code05_BSNearLeft {
         while (L <= R) { // 至少一个数的时候
             int mid = L + ((R - L) >> 1);
             if (arr[mid] >= value) {
+                // 找>=最左的位置，需要压缩右边
                 index = mid;
                 R = mid - 1;
             } else {

@@ -4,6 +4,9 @@ import java.util.Arrays;
 
 public class Code02_BubbleSort {
 
+    /**
+     * 冒泡排序
+     */
     public static void bubbleSort(int[] arr) {
         if (arr == null || arr.length < 2) {
             return;
@@ -11,15 +14,16 @@ public class Code02_BubbleSort {
         // 0 ~ N-1
         // 0 ~ N-2
         // 0 ~ N-3
-        for (int e = arr.length - 1; e > 0; e--) { // 0 ~ e
-            for (int i = 0; i < e; i++) {
+        for (int i = arr.length - 1; i > 0; i--) { // 外层：循环次数
+            for (int j = 0; j < i; j++) {// 内层：在外层边界内判断
                 // 谁大谁往右
-                if (arr[i] > arr[i + 1]) {
-                    swap(arr, i, i + 1);
+                if (arr[j] > arr[j + 1]) {
+                    swap(arr, j, j + 1);
                 }
             }
         }
     }
+
 
     // 不用任何额外变量交换两个数
     public static void swap(int[] arr, int i, int j) {
